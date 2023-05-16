@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <View className='flex-1 bg-white items-center justify-center'>
+      <Text className='text-red-400 uppercase font-bold'>Open up App.tsx to start working on your app!</Text>
       <Text>Borrame</Text>
       <StatusBar style="auto" />
     </View>
