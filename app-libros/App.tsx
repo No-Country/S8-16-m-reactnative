@@ -6,6 +6,8 @@ export default function App() {
     <View className='flex-1 bg-white items-center justify-center'>
       <Text className='text-red-400 uppercase font-bold'>Open up App.tsx to start working on your app!</Text>
       <Text>Borrame</Text>
+      <Text>Hola</Text>
+      <Text>Segunda prueba</Text>
       <StatusBar style="auto" />
     </View>
   );
