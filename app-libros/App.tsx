@@ -1,23 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { MainNavigation } from './src/navigation/MainNavigation';
 
 export default function App() {
   return (
-    <View className='flex-1 bg-white items-center justify-center'>
-      <Text className='text-red-400 uppercase font-bold'>Open up App.tsx to start working on your app!</Text>
-      <Text>Borrame</Text>
-      <Text>Hola</Text>
-      <Text>Segunda prueba</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <MainNavigation />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
