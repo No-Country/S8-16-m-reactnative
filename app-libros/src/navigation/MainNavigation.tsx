@@ -16,7 +16,8 @@ export const MainNavigation = () => {
             initialRouteName='LoginScreen'
             >
                 <Stack.Screen name='LoginScreen' component={LoginScreen} />
-                <Stack.Screen name='HomeScreen' component={HomeScreen} />
+                <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ headerShown: false }} // Ocultar la barra de navegación en la pantalla Home
+ />
             </Stack.Navigator>
     )
 }
