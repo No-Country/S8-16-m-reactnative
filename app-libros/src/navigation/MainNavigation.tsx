@@ -1,11 +1,14 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import { HomeScreen } from '../screens/HomeScreen'
 import { LoginScreen } from '../screens/LoginScreen'
+import { ProfileScreen } from '../screens/ProfileScreen'
 
 export type RootStackParams = {
     HomeScreen: undefined
-    LoginScreen: undefined
+    LoginScreen: undefined,
+    ProfileScreen: undefined
 }
+
 const Stack = createStackNavigator<RootStackParams>()
 
 export const MainNavigation = () => {
@@ -17,6 +20,8 @@ export const MainNavigation = () => {
             >
                 <Stack.Screen name='LoginScreen' component={LoginScreen} />
                 <Stack.Screen name='HomeScreen' component={HomeScreen} />
+                <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
+
             </Stack.Navigator>
     )
 }
