@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Text, View, StyleSheet } from "react-native";
+import { Image, Text, View, StyleSheet, SafeAreaViewComponent } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from '@expo/vector-icons';
@@ -8,7 +8,8 @@ import { FontAwesome } from '@expo/vector-icons';
 export const ProfileScreen = () => {
   return (
     // bg-bookBlack
-    <ScrollView className="flex-1 py-5 bg-bookBlack">
+    <ScrollView>
+    <View className="flex-1 py-5 bg-bookBlack">
       <View className="flex justify-center items-center">
         <View className="relative">
           {/* Arreglar tamano de imagen */}
@@ -65,7 +66,19 @@ export const ProfileScreen = () => {
                     <FontAwesome name="arrow-right" size={24} color="white" />
                 </View>
             </View>
+
+            <View className="flex p-2   rounded-2xl bg-bookGrey overflow-hidden justify-between" style={{height: 125}}>
+                <View className="flex justify-center items-center">
+                    <Image source={require("../../assets/profile.png")} style={styles.imageStyle} />
+                    <Text className="text-bookWhite">@#Kapipiola</Text>
+                </View>
+                <View className="flex gap-2  flex-row bg-bookDarkGrey" style={{width: "120%"}}>
+                    <Text className="text-bookWhite text-sm">Seguir conversando</Text>
+                    <FontAwesome name="arrow-right" size={24} color="white" />
+                </View>
+            </View>
         </View>
+      </View>
       </View>
     </ScrollView>
   );
