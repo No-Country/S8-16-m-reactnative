@@ -22,7 +22,7 @@ const image6 = require('../../../assets/GenresBooks/71QYLrc-IQL1.svg');
 
 const heart = require('../../../assets/GenresBooks/heart.svg');
 
-const GenresBooks = () => {
+export const GenresBooks = () => {
   const { width } = Dimensions.get('screen');
   return (
     <View className="w-full h-full" style={{ backgroundColor: '#171719' }}>
@@ -111,5 +111,3 @@ const GenresBooksStyles = StyleSheet.create({
     color: '#FFFFFF',
   },
 });
-
-export default GenresBooks;
