@@ -1,13 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { Image,Button, ScrollView, Text, View } from 'react-native';
+import { Image, Button, ScrollView, Text, View, FlatList } from 'react-native';
 import { RootStackParams } from '../navigation/MainNavigation';
 import { Ionicons } from '@expo/vector-icons';
-import {SvgComponent} from '../components/Svg'
+import { SvgComponent } from '../components/Svg'
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-
 
 export const HomeScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
@@ -23,6 +21,29 @@ export const HomeScreen = () => {
     { id: 9,  text: '@jose21' ,link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYSSqqCErh-lvWU_8KVa_O9W4JzlLO6XWAGA&usqp=CAU'},
     { id: 10,  text: '@Card4' ,link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCLobvPSOq9fjamuS8pRXKv8ENzjQjB2ACOw&usqp=CAU'},
   ];
+
+  const BOOKS = [
+
+    {
+
+        id: 1,
+        title: 'La naranja mecanica',
+        descripcion: 'Quiero cambiar este libro por uno del genero romantico',
+        image: require('../../assets/books/naranja-mecanica.png')
+
+    },
+
+    {
+
+        id: 2,
+        title: 'El bazar de los malos sueños',
+        descripcion: 'Quiero cambiar este libro por uno del genero romantico',
+        image: require('../../assets/books/stephen-king.png')
+
+    },
+
+
+]
 
   return (
     <SafeAreaView className='flex-1 bg-background'>
@@ -94,11 +115,50 @@ export const HomeScreen = () => {
             ))}
           </ScrollView>
         </View>
+
+        <View className='flex-1'>
+
+          <Text className='text-white text-lg font-bold '>Libros recomendados</Text>
+
+          <ScrollView showsHorizontalScrollIndicator={false} className='p-4'>
+
+            {BOOKS.map((books) => (
+
+              <View key={books.id}>
+
+                <View className='mt-8 flex flex-row flex-1'>
+                  <View className='bg-white w-80 rounded-lg'>
+
+                    <View className='p-5'>
+
+                      <View className='flex w-[30%]'>
+                        <Image source={books.image} className='object-contain'/>
+                      </View>
+
+                      <View className='flex w-[70%]'>
+                        <Text className='text-center'>{books.title}</Text>
+                      </View>
+
+                    </View>
+
+                  </View>
+                </View>
+
+              </View>
+
+            ))}
+
+          </ScrollView>
+
+        </View>
+
         <Text>HomeScreen</Text>
+
         <Button
           title='Volver'
-          onPress={() => navigation.pop() }
+          onPress={() => navigation.pop()}
         />
+
       </View>
     </SafeAreaView>
   )

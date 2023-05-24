@@ -10,14 +10,14 @@ const Stack = createStackNavigator<RootStackParams>()
 
 export const MainNavigation = () => {
     return (
-            <Stack.Navigator screenOptions={{
-                // headerShown: false
-            }}
+        <Stack.Navigator screenOptions={{
+            // headerShown: false
+        }}
             initialRouteName='LoginScreen'
-            >
-                <Stack.Screen name='LoginScreen' component={LoginScreen} />
-                <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ headerShown: false }} // Ocultar la barra de navegación en la pantalla Home
- />
-            </Stack.Navigator>
+        >
+            <Stack.Screen name='LoginScreen' component={LoginScreen} />
+            <Stack.Screen name='HomeScreen' component={HomeScreen} options={{ headerShown: false }} // Ocultar la barra de navegación en la pantalla Home
+            />
+        </Stack.Navigator>
     )
 }
