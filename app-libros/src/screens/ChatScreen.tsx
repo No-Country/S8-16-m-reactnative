@@ -2,10 +2,17 @@ import React from 'react';
 import { Text, View, Image, TextInput, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Octicons } from '@expo/vector-icons';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParams } from '../navigation/MainNavigation';
 
-export const ChatScreen = () => {
+
+interface Props extends StackScreenProps<RootStackParams, 'ChatScreen'> {}
+
+export const ChatScreen = ({ route }: Props) => {
 
   const { top } = useSafeAreaInsets();
+
+  const { user, image } = route.params;
 
   return (
     <View className='flex-1 bg-bookBlack '>
@@ -16,11 +23,11 @@ export const ChatScreen = () => {
 
               <View className='flex-row items-center justify-center'>
                 <Image
-                  source={require('../../assets/user.png')}
+                  source={{ uri: image }}
                   className='w-[42] h-[41]'
                 />
 
-                <Text className='font-medium text-base text-[#EBEBEB] mx-3'>Capipiola</Text>
+                <Text className='font-medium text-base text-[#EBEBEB] mx-3'>{user}</Text>
               </View>
 
                 <View className='bg-[#1E1E1E] rounded-full w-[43] h-[43] flex-col justify-center items-center'>

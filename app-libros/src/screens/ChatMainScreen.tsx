@@ -1,11 +1,77 @@
 import React from 'react';
-import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParams } from '../navigation/MainNavigation';
+import { CardChat } from '../components/Chats/CardChat';
+import { ItemSeparator } from '../components/ItemSeparator';
+import { Chat } from '../interfaces/chat.interfaces';
 
 export const ChatMainScreen = () => {
 
     const { top } = useSafeAreaInsets();
+
+    const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+
+    const chats: Chat[] = [
+        {
+            user: 'Lomitojpg',
+            min: '15',
+            id: '123kjb251lpg3kb123',
+            image: 'http://imgfz.com/i/Cq7t4H2.png'
+        },
+        {
+            user: 'Michilover',
+            min: '20',
+            id: '12mgh7b2512l3kb123',
+            image: 'http://imgfz.com/i/sxB6cJ4.png'
+        },
+        {
+            user: 'Leo Messi',
+            min: '45',
+            id: '123kjb2512smnsb123',
+            image: 'http://imgfz.com/i/WlCJ9ai.png'
+        },
+        {
+            user: 'Ana',
+            min: '44',
+            id: '123kjb2512l3kbmg8',
+            image: 'http://imgfz.com/i/yjKHrWn.png'
+        },
+        {
+            user: 'Advincula',
+            min: '50',
+            id: '123kjb2510p3kb123',
+            image: 'http://imgfz.com/i/ibvaeFu.png'
+        },
+        {
+            user: 'Maria del barrio',
+            min: '55',
+            id: '123kl92512l3kb123',
+            image: 'http://imgfz.com/i/QJvV24R.png'
+        },
+        {
+            user: 'Carlos',
+            min: '60',
+            id: '456lksd7812l3kbmg8',
+            image: 'http://imgfz.com/i/oi72ZgX.png'
+        },
+        {
+            user: 'Luisa',
+            min: '42',
+            id: '456lksd7890p3kb123',
+            image: 'http://imgfz.com/i/GY96aLO.png'
+        },
+        {
+            user: 'Juan',
+            min: '38',
+            id: '456lk78912l3kb123',
+            image: 'http://imgfz.com/i/QJvV24R.png'
+        }
+
+    ]
 
   return (
     <View className='flex-1 bg-bookBlack'>
@@ -36,63 +102,31 @@ export const ChatMainScreen = () => {
         </View>
 
         {/* Cuerpo */}
-        <ScrollView className='container mx-auto px-4' style={{ top: top + 20 }}>
-            
-            {/* Card */}
-            <View className='px-1 mb-5'>
+        <View className='container mx-auto px-5 flex-1' style={{ top: top + 20 }}>
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                data={chats}
+                keyExtractor={(chat) => chat.id}
+                renderItem={({ item, index }) => (
+                    <CardChat 
+                        chat={item} 
+                        onPress={() => 
+                            navigation.navigate('ChatScreen', {
+                                user: item.user,
+                                id: item.id,
+                                min: item.min,
+                                image: item.image
+                            })
+                        }
+                    />
+                )}
 
-                <View className='flex-row items-center justify-between mb-4'>
+                ItemSeparatorComponent={() => <ItemSeparator />}
 
-                <Image 
-                    source={require('../../assets/user.png')}
-                    className='w-[46px] h-[46px]'
-                />
+                ListFooterComponent={() => <View className='h-[80] justify-center' /> }
 
-                <View className='ml-6'>
-                    <Text className='font-semibold text-base text-[#EBEBEB]'>Lomitojpg</Text>
-                    <Text className='font-normal text-sm text-bookGrey'>Enviado hace 15min</Text>
-                </View>
-
-                <View className='flex-1' />
-
-                <TouchableOpacity activeOpacity={0.7}>
-                    <Ionicons name="trash" size={20} color="white" />
-                </TouchableOpacity>
-                </View>
-
-                <View className='items-center justify-center'>
-                    <View className='border-b border-[#1C1C1C] w-3/4' />
-                </View>
-            </View>
-
-            {/* Card */}
-            <View className='px-1 mb-5'>
-
-                <View className='flex-row items-center justify-between mb-4'>
-
-                <Image 
-                    source={require('../../assets/user.png')}
-                    className='w-[46px] h-[46px]'
-                />
-
-                <View className='ml-6'>
-                    <Text className='font-semibold text-base text-[#EBEBEB]'>Lomitojpg</Text>
-                    <Text className='font-normal text-sm text-bookGrey'>Enviado hace 15min</Text>
-                </View>
-
-                <View className='flex-1' />
-
-                <TouchableOpacity activeOpacity={0.7}>
-                    <Ionicons name="trash" size={20} color="white" />
-                </TouchableOpacity>
-                </View>
-
-                <View className='items-center justify-center'>
-                    <View className='border-b border-[#1C1C1C] w-3/4' />
-                </View>
-            </View>
-            
-        </ScrollView>
+            />
+        </View>
 
     </View>
   )
