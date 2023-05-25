@@ -16,7 +16,10 @@ export const HomeScreen = () => {
         title='Volver'
         onPress={() => navigation.pop() }
       />
-
+      <Button
+        title='Perfil'
+        onPress={() => navigation.navigate('ProfileScreen') }
+    />
     </View>
   )
 }
