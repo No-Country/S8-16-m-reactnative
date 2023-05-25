@@ -6,7 +6,7 @@ import { GenresBooks } from '../components/GenresBooks/GenresBooks';
 import { PostBookScreen } from '../screens/PostBookScreen';
 import { AskBookScreen } from '../screens/AskBookScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
-
+  
 export type RootStackParams = {
   HomeScreen: undefined;
   LoginScreen: undefined;
@@ -14,7 +14,7 @@ export type RootStackParams = {
   GenresBooks: undefined;
   PostBookScreen: undefined;
   AskBookScreen: undefined;
-  ProfileScreen: undefined
+  ProfileScreen: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParams>();
