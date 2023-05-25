@@ -7,7 +7,8 @@ module.exports = {
         bookYellow: '#FF9A1F',
         bookBlack: '#171719',
         bookGrey: '#4C4C4C' ,
-        bookWhite: '#FFFFFF'
+        bookWhite: '#FFFFFF',
+        bookDarkGrey: "#222222"
       }
     },
   },
