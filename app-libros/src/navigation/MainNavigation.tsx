@@ -3,18 +3,21 @@ import { HomeScreen } from '../screens/HomeScreen';
 import { LoginScreen } from '../screens/LoginScreen';
 import { ChatScreen } from '../screens/ChatScreen';
 import { GenresBooks } from '../components/GenresBooks/GenresBooks';
+import { ProfileScreen } from '../screens/ProfileScreen'
+import { ChatMainScreen } from '../screens/ChatMainScreen';
+import { Chat } from '../interfaces/chat.interfaces';
 import { PostBookScreen } from '../screens/PostBookScreen';
 import { AskBookScreen } from '../screens/AskBookScreen';
-import { ProfileScreen } from '../screens/ProfileScreen';;
 
 export type RootStackParams = {
   HomeScreen: undefined;
   LoginScreen: undefined;
-  ChatScreen: undefined;
+  ChatScreen: Chat;
   GenresBooks: undefined;
+  ProfileScreen: undefined;
+  ChatMainScreen: undefined;
   PostBookScreen: undefined;
   AskBookScreen: undefined;
-  ProfileScreen: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -25,7 +28,7 @@ export const MainNavigation = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="LoginScreen"
+      initialRouteName="ChatMainScreen"
     >
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="ChatScreen" component={ChatScreen} />
@@ -34,6 +37,7 @@ export const MainNavigation = () => {
       <Stack.Screen name="PostBookScreen" component={PostBookScreen} />
       <Stack.Screen name="AskBookScreen" component={AskBookScreen} />
       <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
+      <Stack.Screen name='ChatMainScreen' component={ChatMainScreen} />
     </Stack.Navigator>
   );
 };
