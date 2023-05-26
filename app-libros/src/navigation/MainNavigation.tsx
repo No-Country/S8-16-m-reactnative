@@ -8,7 +8,6 @@ import { ChatMainScreen } from '../screens/ChatMainScreen';
 import { Chat } from '../interfaces/chat.interfaces';
 import { PostBookScreen } from '../screens/PostBookScreen';
 import { AskBookScreen } from '../screens/AskBookScreen';
-  
 
 export type RootStackParams = {
   HomeScreen: undefined;
