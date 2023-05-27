@@ -7,7 +7,7 @@ import {
   Pressable,
   View,
   Image,
-  TextInput
+  TextInput,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
@@ -25,18 +25,18 @@ interface Props {
 
 const ModalBook = ({ image, title, description, genre, type }: Props) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [editTitle, setEditTitle] = useState<boolean>(false);
+  const [editDescription, setEditDescription] = useState<boolean>(false);
   const [form, setForm] = useState<Props>({
-    title: title,   
+    title: title,
     description: description,
-    genre: genre,   
+    genre: genre,
     type: type,
-    });  
-  
-  const onChange = (text: string, id: string) => {
-    
-    setForm({ ...form, [id]: text});
+  });
 
-    };
+  const onChange = (text: string, id: string) => {
+    setForm({ ...form, [id]: text });
+  };
 
   return (
     <View style={styles.centeredView} className="justify-self-end">
@@ -59,30 +59,32 @@ const ModalBook = ({ image, title, description, genre, type }: Props) => {
             <View className="flex rounded-xl bg-[#212121] p-5 pb-8 m-5">
               <View className="flex justify-center items-center mb-5 gap-2 flex-row">
                 <TextInput
-                  className="bg-[#606060] p-2 text-base font-bold text-bookWhite"
+                  className={`bg-[#${
+                    editTitle ? "606060" : "212121"
+                  }] p-2 text-base font-bold text-bookWhite`}
                   placeholderTextColor="#4D4D4D"
                   placeholder="Cambiar titulo"
-                //   editable={false}
+                  //   editable={false}
                   value={form.title}
                   id="title"
-                  onChangeText={(e)=> onChange(e, "title")}
-                //   editable={false}
-                  
+                  onChangeText={(e) => onChange(e, "title")}
+                  editable={editTitle}
                 />
                 {/* <Text className="text-base font-bold text-bookWhite">
                   {title}
                 </Text> */}
- 
+                <Pressable onPress={() => setEditTitle(!editTitle)}>
                   <View className="relative bg-bookYellow p-2 rounded-full">
                     <Ionicons name="md-pencil" size={28} color="black" />
                   </View>
+                </Pressable>
               </View>
               <View className="flex relative justify-center items-center">
                 <Image
                   source={require("../../../assets/GenresBooks/harry.png")}
                   style={{ width: 120, height: 200 }}
                 />
-                
+
                 <View className="absolute right-10 -bottom-5 bg-bookYellow p-2 rounded-full">
                   <Ionicons name="md-pencil" size={28} color="black" />
                 </View>
@@ -92,33 +94,51 @@ const ModalBook = ({ image, title, description, genre, type }: Props) => {
             <View className="flex gap-2 m-5 w-[90%]">
               <View className="flex flex-row justify-between items-center">
                 <View className="break-words w-[80%]">
-                  <Text className="text-bookWhite font-light text-xs break-words">
-                    {description}
-                  </Text>
+                  <TextInput
+                    className={`bg-[#${
+                      editDescription ? "606060" : "171719"
+                    }]  text-bookWhite font-light text-xs px-2 py-1`}
+                    multiline={true}
+                    numberOfLines={4}
+                    onChangeText={(e) => onChange(e, "description")}
+                    value={form.description}
+                    editable={editDescription}
+                  />
                 </View>
-                <View className="relative bg-bookYellow p-2 rounded-full">
-                  <Ionicons name="md-pencil" size={28} color="black" />
-                </View>
+                <Pressable onPress={() => setEditDescription(!editDescription)}>
+                  <View className="relative bg-bookYellow p-2 rounded-full">
+                    <Ionicons name="md-pencil" size={28} color="black" />
+                  </View>
+                </Pressable>
               </View>
               <View className="flex gap-2 flex-row justify-between ">
-                <View className="flex flex-row justify-center items-center px-5 py-3 rounded-3xl bg-bookWhite">
-                  {type === "Trueque" ? (
-                    <MaterialIcons
-                      name="compare-arrows"
-                      size={24}
-                      color="black"
-                    />
-                  ) : (
-                    <FontAwesome5 name="coins" size={24} color="black" />
-                  )}
-                  <Text className="ml-2 text-bookBlack font-semibold">
-                    {type}
-                  </Text>
-                </View>
+                {/* <View className="flex items-center"> */}
+
+                  <View className="flex flex-row justify-center items-center px-5 py-3 rounded-3xl bg-bookWhite">
+                    {form.type === "Trueque" ? (
+                      <Entypo
+                        name="shuffle"
+                        size={18}
+                        color="black"
+                      />
+                    ) : (
+                      <FontAwesome5 name="coins" size={18} color="black" />
+                    )}
+                    <Text className="ml-2 text-bookBlack font-semibold">
+                      {form.type}
+                    </Text>
+                  </View>
+                {/* </View> */}
                 <View className="flex">
+                  <Pressable
+                  onPress={() => form.type === "Trueque" ? onChange("Compra", "type") : onChange("Trueque", "type")}
+                  >
+
+                  
                   <View className="bg-bookYellow p-2 rounded-full">
                     <Ionicons name="md-pencil" size={28} color="black" />
                   </View>
+                </Pressable>
                 </View>
               </View>
               <View className="flex gap-2 flex-row justify-between ">
