@@ -1,13 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Button, Text, TouchableOpacity, View, TextInput, Image, StyleSheet } from 'react-native';
-import { RootStackParams } from '../../navigation/RegisterNavigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 
 export const Register3 = () => {
 
-  const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+  // const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
 
   return (
     <View className='flex-1 justify-center items-center bg-[#1E1E1E]'>

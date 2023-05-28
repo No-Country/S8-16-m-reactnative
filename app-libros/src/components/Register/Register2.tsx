@@ -2,12 +2,12 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Button, Text, TouchableOpacity, View, TextInput, Image, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParams } from '../../navigation/MainNavigation';
+import { InnerStackParams } from '../../navigation/MainNavigation';
 
 
 export const Register2 = () => {
 
-  const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+  const navigation = useNavigation<StackNavigationProp<InnerStackParams>>();
 
   return (
     <View className='flex-1 justify-center items-center bg-[#1E1E1E]'>
@@ -21,12 +21,12 @@ export const Register2 = () => {
       <TextInput
         className='bg-[#272727] px-8 py-3 mb-6 w-4/5 rounded-xl text-xs'
         placeholderTextColor="#4D4D4D"
-        placeholder="Ingresá tu nombre y apellido "
+        placeholder="Ingresá tu email"
       />
       <TextInput
         className='bg-[#272727] px-8 py-3 mb-20 w-4/5 rounded-xl text-xs '
         placeholderTextColor="#4D4D4D"
-        placeholder="Ingresá tu nombre de usuario"
+        placeholder="Ingresá tu localidad aproximada"
       />
 
       <TouchableOpacity
