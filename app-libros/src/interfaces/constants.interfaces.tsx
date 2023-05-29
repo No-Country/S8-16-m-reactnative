@@ -1,5 +1,8 @@
 export interface Genre {
+    id: string;
     name: string;
+    image: string;
+    icon: string;
     [key: string]: string | boolean;
 }
 
