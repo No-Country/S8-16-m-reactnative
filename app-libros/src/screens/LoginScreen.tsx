@@ -60,7 +60,7 @@ export const LoginScreen = () => {
       </View>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('HomeScreen')}
+        onPress={() => navigation.navigate('InnerStack')}
         activeOpacity={0.8}
       >
         <Text className='text-[#4C4C4C] text-xs self-center'>
