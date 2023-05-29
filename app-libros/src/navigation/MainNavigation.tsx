@@ -20,14 +20,16 @@ export type RootStackParams = {
 
 export type InnerStackParams = {
   Register1: undefined;
-  Register2: {datos: datosForm};
-  Register3: undefined;
+  Register2: {datos: DatosForm};
+  Register3: {datos: DatosForm};
 };
 
-type datosForm = {
+export type DatosForm = {
   nameLastname: string,
   user: string,
-  password: string
+  password: string,
+  email: 'valor'
+  city: 'valor'
 }
   
 const Stack = createStackNavigator<RootStackParams>();

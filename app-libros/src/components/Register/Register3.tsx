@@ -1,12 +1,24 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Text, TouchableOpacity, View, TextInput, Image, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+interface Register3Props {
+  navigation: any;
+  route: any;
+}
 
-export const Register3 = () => {
+export const Register3: React.FC<Register3Props> = ({navigation, route}) => {
+  
+  const { nameLastname, user, password, email, city } = route.params;
+  // const navigation = useNavigation<StackNavigationProp<InnerStackParams>>();
+  const datos = route.params
 
-  // const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+  useEffect(() => {
+    console.log('Datos anteriores:', nameLastname , password, email, city );
+    console.log('Nuevos datos:');
+    console.log(datos)
+  }, [nameLastname, user, password, email, city])
 
   return (
     <View className='flex-1 justify-center items-center bg-[#1E1E1E]'>
@@ -33,6 +45,7 @@ export const Register3 = () => {
 
       </TouchableOpacity>
       <TouchableOpacity
+        onPress={()=> navigation.navigate('HomeScreen')}
         activeOpacity={0.8}
         className='bg-[#272727] px-0 py-5 ml-5 w-32 rounded-xl'
       >
