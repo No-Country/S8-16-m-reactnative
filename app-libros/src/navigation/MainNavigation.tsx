@@ -8,14 +8,23 @@ import { ProfileScreen } from '../screens/ProfileScreen'
 import { Register1 } from '../components/Register/Register1';
 import { Register2 } from '../components/Register/Register2';
 import { Register3 } from '../components/Register/Register3';
-  
+import { ChatMainScreen } from '../screens/ChatMainScreen';
+import { PostBookScreen } from '../screens/PostBookScreen';
+import { AskBookScreen } from '../screens/AskBookScreen';
+import { SearchScreen } from '../screens/SearchScreen';
+import { Chat } from '../interfaces/constants.interfaces';
+
 export type RootStackParams = {
   HomeScreen: undefined;
   LoginScreen: undefined;
   InnerStack: undefined;
-  ChatScreen: undefined;
+  ChatScreen: Chat;
   GenresBooks: undefined;
-  ProfileScreen: undefined
+  ProfileScreen: undefined;
+  ChatMainScreen: undefined;
+  PostBookScreen: undefined;
+  AskBookScreen: undefined;
+  SearchScreen: undefined;
 };
 
 export type InnerStackParams = {
@@ -31,7 +40,7 @@ export type DatosForm = {
   email: 'valor'
   city: 'valor'
 }
-  
+
 const Stack = createStackNavigator<RootStackParams>();
 
 const InnerStackNavigator = createStackNavigator<InnerStackParams>();
@@ -58,15 +67,18 @@ export const MainNavigation = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="LoginScreen"
+      initialRouteName="SearchScreen"
     >
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="InnerStack" component={InnerStack} />
       <Stack.Screen name="ChatScreen" component={ChatScreen} />
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="GenresBooks" component={GenresBooks} />
+      <Stack.Screen name="PostBookScreen" component={PostBookScreen} />
+      <Stack.Screen name="AskBookScreen" component={AskBookScreen} />
       <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
+      <Stack.Screen name='ChatMainScreen' component={ChatMainScreen} />
+      <Stack.Screen name='SearchScreen' component={SearchScreen} />
     </Stack.Navigator>
   );
 };
-

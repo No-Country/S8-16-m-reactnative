@@ -1,20 +1,51 @@
 import { Image } from 'expo-image';
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 const pointedOval = require('../../../assets/GenresBooks/pointedOval.svg');
 const Ellipse = require('../../../assets/GenresBooks/Ellipse.svg');
+const EllipseSelected = require('../../../assets/GenresBooks/EllipseSelected.svg');
+const CircleApproval = require('../../../assets/GenresBooks/CircleApproval.svg');
 
 export default function CircleWithImages({
   title = 'CircleWithImages',
   images = [''],
   style = {},
+  onPress = (a) => {},
+  selected = false,
+}: {
+  title: string;
+  images: Array<any>;
+  style: object;
+  onPress?: (...arg: any) => any;
+  selected?: boolean;
 }) {
   return (
-    <View
+    <TouchableOpacity
+      style={{
+        ...CircleWithImagesStyles.parentContainer,
+        ...style,
+      }}
       className="flex w-full h-full items-center"
-      style={{ ...CircleWithImagesStyles.parentContainer, ...style }}
+      onPress={() => onPress(title)}
+      activeOpacity={0.8}
     >
-      <Image className="w-full h-full absolute" source={Ellipse} />
+      <Image
+        className="w-full h-full absolute"
+        source={selected ? EllipseSelected : Ellipse}
+      />
+      {selected && (
+        <Image
+          style={{
+            height: '14%',
+            width: '14%',
+            position: 'absolute',
+            right: '13%',
+            bottom: '4%',
+          }}
+          source={CircleApproval}
+        />
+      )}
+      {/* envolver con TouchableOpacity and poner onPress */}
       <Text style={CircleWithImagesStyles.title}>{title}</Text>
       <View className="" style={CircleWithImagesStyles.imageContainer}>
         <Image source={images[0]} style={CircleWithImagesStyles.image} />
@@ -53,7 +84,7 @@ export default function CircleWithImages({
           />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
