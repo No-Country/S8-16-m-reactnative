@@ -10,6 +10,7 @@ import { SearchInput } from '../components/SearchInput';
 import { CHATS } from '../constants/chats';
 import { Chat } from '../interfaces/constants.interfaces';
 import { useSearch } from '../hooks/useSearch';
+import { HeaderFlatList } from '../components/HeaderFlatList';
 
 
 export const ChatMainScreen = () => {
@@ -41,7 +42,7 @@ export const ChatMainScreen = () => {
                 showsVerticalScrollIndicator={false}
                 data={dataFiltered}
                 keyExtractor={(chat) => chat.id}
-                renderItem={({ item, index }) => (
+                renderItem={({ item }) => (
                     <CardChat 
                         chat={item} 
                         onPress={() => 
@@ -57,8 +58,8 @@ export const ChatMainScreen = () => {
                 )}
 
                 ItemSeparatorComponent={() => <ItemSeparator />}
-
-                ListFooterComponent={() => <View className='h-[80] justify-center' /> }
+                ListHeaderComponent={<HeaderFlatList title='Chats'/>}
+                ListFooterComponent={<View className='h-[80] justify-center' />}
 
             />
         </View>
