@@ -1,11 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React from 'react';
-import { Image, Button, ScrollView, Text, View, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { Image, Button, ScrollView, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { RootStackParams } from '../navigation/MainNavigation';
 import { Ionicons } from '@expo/vector-icons';
 import { SvgComponent } from '../components/Svg'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Modal from 'react-native-modal'
+
+
 
 export const HomeScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
@@ -43,7 +46,15 @@ export const HomeScreen = () => {
     },
 
 
+
 ]
+
+const [isModalVisible, setIsModalVisible] = useState(false);
+
+const toggleModal = () => {
+  setIsModalVisible(!isModalVisible);
+};
+
 
   return (
     <SafeAreaView className='flex-1 bg-background'>
@@ -75,10 +86,10 @@ export const HomeScreen = () => {
             showsHorizontalScrollIndicator={false}
           >
             {cardsData.map((card) => (
-              <View key={card.id}> 
+              <View  key={card.id} > 
                 <Text className='absolute -left-3 top-1 -z-20  text-[60px] font-bold text-[#FF8A00]'>0{card.id}</Text>
 
-                <View
+                <TouchableOpacity onPress={toggleModal}
                   className="mr-4 mt-12 bg-bookGrey  z-10 
                   flex items-center
                   pt-4 rounded-2xl h-52 w-32"
@@ -106,13 +117,34 @@ export const HomeScreen = () => {
 
                       
                     </View>
-                </View>
+                </TouchableOpacity>
+
                 <View className="absolute top-12 z-30  bg-[#252525] rounded-bl-lg rounded-tr-lg right-4 p-3 shadow-sm shadow-black">
                     {/* Agrega aquí el icono que deseas mostrar */}
                     <Ionicons name="bookmark-outline" size={20} color="white" />
                 </View>
+
+                <Modal isVisible={isModalVisible} className="flex justify-start bg-background max-h-[60vh] mt-12 rounded-lg" onBackdropPress={toggleModal}>
+                  <View className='flex items-center bg-bookGrey'>
+                  <Image
+                      source={{ uri: card.link }}                
+                      className='w-[93px] h-[149px] shadow-md shadow-black'
+                      />
+                   <View className="absolute top-0 z-30  bg-[#252525] rounded-bl-lg rounded-tr-lg right-0 p-3 shadow-sm shadow-black">
+                    {/* Agrega aquí el icono que deseas mostrar */}
+                    <Ionicons name="bookmark-outline" size={20} color="white" />
+                </View>
+                      
+
+                  </View>
+                    <Text>{card.id}</Text>
+                </Modal>
+                
               </View>
+              
+              
             ))}
+            
           </ScrollView>
         </View>
 
