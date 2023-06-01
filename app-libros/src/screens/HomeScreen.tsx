@@ -186,12 +186,16 @@ const toggleModal = () => {
 
         <Text>HomeScreen</Text>
 
-        <Button
-          title='Volver'
-          onPress={() => navigation.pop()}
-        />
 
-      </View>
-    </SafeAreaView>
+      <Button
+        title='Volver'
+        onPress={() => navigation.pop() }
+      />
+      <Button
+        title='Perfil'
+        onPress={() => navigation.navigate('ProfileScreen') }
+    />
+    </View>
+
   )
 }

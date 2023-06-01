@@ -3,11 +3,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen } from '../screens/HomeScreen';
 import { LoginScreen } from '../screens/LoginScreen';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import {ProfileScreen} from '../screens/ProfileScreen';
+
 
 const Tab = createBottomTabNavigator()
 
 export const TabNavigation = () => {
   return (
+
     <Tab.Navigator 
     screenOptions={{ 
       headerShown: false,
@@ -33,6 +36,10 @@ export const TabNavigation = () => {
         title: 'Login'
 
       }}/>
+            
+        <Tab.Screen name="ProfileScreen" component={ProfileScreen} />
+
+ 
     </Tab.Navigator>
   )
 }
