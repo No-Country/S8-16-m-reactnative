@@ -8,6 +8,7 @@ module.exports = {
         bookBlack: '#171719',
         bookGrey: '#4C4C4C' ,
         bookWhite: '#FFFFFF',
+        background:'#171719',
         bookDarkGrey: "#222222"
       }
     },

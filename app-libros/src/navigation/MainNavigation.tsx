@@ -62,6 +62,7 @@ const InnerStack = () => {
 };
 
 export const MainNavigation = () => {
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -82,3 +83,4 @@ export const MainNavigation = () => {
     </Stack.Navigator>
   );
 };
+
