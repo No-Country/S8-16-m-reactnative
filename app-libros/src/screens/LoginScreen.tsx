@@ -19,18 +19,19 @@ export const LoginScreen = () => {
         className='text-[#FFFFFF] text-base mb-7 mt-5'
       >¡Bienvenido!</Text>
       <TextInput
-        className='bg-[#272727] px-8 py-3 mb-6 w-4/5 rounded-xl text-xs'
+        className='bg-[#272727] px-8 py-3 mb-6 w-4/5 rounded-xl text-xs text-white'
         placeholderTextColor="#4D4D4D"
         placeholder="Ingresa tu usuario"
       />
       <TextInput
-        className='bg-[#272727] px-8 py-3 mb-7 w-4/5 rounded-xl text-xs '
+        className='bg-[#272727] px-8 py-3 mb-7 w-4/5 rounded-xl text-xs text-white'
         placeholderTextColor="#4D4D4D"
         placeholder="Ingresa tu contraseña"
+        secureTextEntry
       />
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('HomeScreen')}
+        onPress={() => navigation.navigate('StackNavigation' as never)}
         activeOpacity={0.8}
         className='bg-[#0F0F0F] px-8 py-4 mb-3 w-4/5 rounded-xl'
       >
@@ -44,7 +45,7 @@ export const LoginScreen = () => {
       </Text>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('HomeScreen')}
+        onPress={() => navigation.navigate('HomeScreen' as never)}
         activeOpacity={0.8}
         className='bg-[#4C4C4C] px-8 py-4 mt-3 w-4/5 rounded-xl'
       >
@@ -60,7 +61,7 @@ export const LoginScreen = () => {
       </View>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('InnerStack')}
+        onPress={() => navigation.navigate('Register1' as never)}
         activeOpacity={0.8}
       >
         <Text className='text-[#4C4C4C] text-xs self-center'>

@@ -45,7 +45,7 @@ export const Register3: React.FC<Register3Props> = ({navigation, route}) => {
 
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={()=> navigation.navigate('HomeScreen')}
+        onPress={()=> navigation.navigate('StackNavigation' as never)}
         activeOpacity={0.8}
         className='bg-[#272727] px-0 py-5 ml-5 w-32 rounded-xl'
       >

@@ -2,7 +2,7 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Button, Text, TouchableOpacity, View, TextInput, Image, StyleSheet, Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { DatosForm, InnerStackParams } from '../../navigation/MainNavigation';
+// import { DatosForm, InnerStackParams } from '../../navigation/MainNavigation';
 import { Register3 } from './Register3';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../utils/firebaseConfig';
@@ -91,14 +91,15 @@ export const Register2: React.FC<Register2Props> = ({ navigation, route }) => {
         className='text-[#FFFFFF] text-base mb-7 mt-5'
       >Ingresa tus datos</Text>
       <TextInput
-        className='bg-[#272727] px-8 py-3 mb-6 w-4/5 rounded-xl text-xs'
+        className='bg-[#272727] px-8 py-3 mb-6 w-4/5 rounded-xl text-xs text-white'
         placeholderTextColor="#4D4D4D"
         onChangeText={handleEmail}
         value={email}
         placeholder="Ingresá tu email"
+        keyboardType='email-address'
       />
       <TextInput
-        className='bg-[#272727] px-8 py-3 mb-20 w-4/5 rounded-xl text-xs '
+        className='bg-[#272727] px-8 py-3 mb-20 w-4/5 rounded-xl text-xs text-white'
         placeholderTextColor="#4D4D4D"
         value={city}
         onChangeText={handleCity}

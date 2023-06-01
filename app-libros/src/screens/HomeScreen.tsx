@@ -2,11 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { Image, Button, ScrollView, Text, View, FlatList, TouchableOpacity } from 'react-native';
-import { RootStackParams } from '../navigation/MainNavigation';
 import { Ionicons } from '@expo/vector-icons';
 import { SvgComponent } from '../components/Svg'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Modal from 'react-native-modal'
+import { RootStackParams } from '../navigation/StackNavigation';
 
 
 
@@ -68,14 +68,17 @@ const toggleModal = () => {
           <View className="flex items-center flex-grow pr-8 ">
             <SvgComponent  />
           </View>
-          <View className="flex flex-row items-center rounded-full ">
+          <TouchableOpacity 
+            className="flex flex-row items-center rounded-full "
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('ProfileScreen')}
+          >
 
             <Image 
               source={require('../../assets/imgEj/fotoPerfil.png')}
-              // className=''
-            
+              className='w[44px] h-[44px]'
             />
-          </View>
+          </TouchableOpacity>
         </View>
 
         <View className="justify-start w-screen pl-4 pt-5">
@@ -179,19 +182,8 @@ const toggleModal = () => {
               </View>
 
             ))}
-
           </ScrollView>
-
         </View>
-
-      {/* <Button
-        title='Volver'
-        onPress={() => navigation.pop() }
-      />
-      <Button
-        title='Perfil'
-        onPress={() => navigation.navigate('ProfileScreen') }
-    /> */}
     </View>
     </SafeAreaView>
 
