@@ -68,7 +68,7 @@ export const MainNavigation = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="SearchScreen"
+      initialRouteName="LoginScreen"
     >
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="InnerStack" component={InnerStack} />

@@ -71,8 +71,8 @@ const toggleModal = () => {
           <View className="flex flex-row items-center rounded-full ">
 
             <Image 
-            source={require('../../assets/imgEj/fotoPerfil.png')}
-            className=''
+              source={require('../../assets/imgEj/fotoPerfil.png')}
+              // className=''
             
             />
           </View>
@@ -184,18 +184,16 @@ const toggleModal = () => {
 
         </View>
 
-        <Text>HomeScreen</Text>
-
-
-      <Button
+      {/* <Button
         title='Volver'
         onPress={() => navigation.pop() }
       />
       <Button
         title='Perfil'
         onPress={() => navigation.navigate('ProfileScreen') }
-    />
+    /> */}
     </View>
+    </SafeAreaView>
 
   )
 }
