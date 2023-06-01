@@ -84,25 +84,26 @@ export const Register1: React.FC<FormularioProps> = ({ navigation }) => {
         className='text-[#FFFFFF] text-base mb-7 mt-5'
       >Ingresa tus datos</Text>
       <TextInput
-        className='bg-[#272727] px-8 py-3 mb-6 w-4/5 rounded-xl text-xs'
+        className='bg-[#272727] px-8 py-3 mb-6 w-4/5 rounded-xl text-xs text-white'
         value={nameLastname}
         onChangeText={handleNameLastname}
         placeholderTextColor="#4D4D4D"
         placeholder="Ingresá tu nombre y apellido "
       />
       <TextInput
-        className='bg-[#272727] px-8 py-3 mb-7 w-4/5 rounded-xl text-xs '
+        className='bg-[#272727] px-8 py-3 mb-7 w-4/5 rounded-xl text-xs text-white'
         value={user}
         onChangeText={handleUser}
         placeholderTextColor="#4D4D4D"
         placeholder="Ingresá tu nombre de usuario"
       />
       <TextInput
-        className='bg-[#272727] px-8 py-3 mb-7 w-4/5 rounded-xl text-xs '
+        className='bg-[#272727] px-8 py-3 mb-7 w-4/5 rounded-xl text-xs text-white'
         value={password}
         onChangeText={handlePassword}
         placeholderTextColor="#4D4D4D"
         placeholder="Ingresa tu contraseña"
+        secureTextEntry
       />
 
       <TouchableOpacity

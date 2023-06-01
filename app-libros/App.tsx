@@ -8,10 +8,7 @@ import { store } from "./src/redux/app/store";
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
         <MainNavigation />
-        {/* <TabNavigation /> */}
-      </NavigationContainer>
     </Provider>
   );
 }
