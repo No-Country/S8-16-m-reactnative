@@ -1,26 +1,44 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { collection, addDoc, orderBy, query, onSnapshot } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  orderBy,
+  query,
+  onSnapshot,
+} from 'firebase/firestore';
 import { ActivityIndicator, Image, View } from 'react-native';
-import { AvatarProps, Bubble, BubbleProps, IMessage, InputToolbar, InputToolbarProps, Send, SendProps, Time, TimeProps } from 'react-native-gifted-chat';
-import { db as database } from "../utils/firebaseConfig";
+import {
+  AvatarProps,
+  Bubble,
+  BubbleProps,
+  IMessage,
+  InputToolbar,
+  InputToolbarProps,
+  Send,
+  SendProps,
+  Time,
+  TimeProps,
+} from 'react-native-gifted-chat';
+import { db as database } from '../utils/firebaseConfig';
 import { Chat } from '../interfaces/chat.interfaces';
 import { Octicons } from '@expo/vector-icons';
 
-
 export const useChat = ({ online, user, image }: Chat) => {
-
   const onlineColor = online ? '#82DB91' : '#d3230e';
 
-//   console.log(onlineColor);
+  //   console.log(onlineColor);
 
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useLayoutEffect(() => { //useLayoutEffect es un hook que se ejecuta antes de que se renderice el componente
-    const collectionRef = collection(database, "messages");
-    const q = query(collectionRef, orderBy("createdAt", "desc"));
-    const unsubscribe = onSnapshot(q, (snapshot) => { //onSnapshot es un listener que se ejecuta cada vez que hay un cambio en la colección
-      const newMessages = snapshot.docs.map((doc) => ({ // Mapea los documentos de la colección a un array de mensajes, ademas snapshot.docs es un array de documentos
+  useLayoutEffect(() => {
+    //useLayoutEffect es un hook que se ejecuta antes de que se renderice el componente
+    const collectionRef = collection(database, 'messages');
+    const q = query(collectionRef, orderBy('createdAt', 'desc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      //onSnapshot es un listener que se ejecuta cada vez que hay un cambio en la colección
+      const newMessages = snapshot.docs.map((doc) => ({
+        // Mapea los documentos de la colección a un array de mensajes, ademas snapshot.docs es un array de documentos
         _id: doc.id,
         text: doc.data().text,
         createdAt: parseDateString(doc.data().createdAt),
@@ -42,15 +60,15 @@ export const useChat = ({ online, user, image }: Chat) => {
     if (!dateObj || typeof dateObj !== 'object') {
       return null; // O un valor predeterminado, dependiendo de tus necesidades
     }
-  
+
     const { seconds, nanoseconds } = dateObj;
-  
+
     // Multiplica los nanosegundos por 0.001 para convertirlo a milisegundos
     const milliseconds = nanoseconds * 0.001;
-  
+
     // Crea un objeto Date utilizando los segundos y milisegundos
     const date = new Date(seconds * 1000 + milliseconds);
-  
+
     return date;
   }
 
@@ -85,45 +103,51 @@ export const useChat = ({ online, user, image }: Chat) => {
 
   const renderInputToolbar = (props: InputToolbarProps<IMessage>) => {
     return (
-        <InputToolbar 
-          {...props} 
-          containerStyle={{ 
-            backgroundColor: '#252525',
-            paddingHorizontal: 10,
-            height: 75,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderTopWidth: 0,
-          }} 
-          primaryStyle={{
-            backgroundColor: '#1C1C1C',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: 45,
-          }}
-          
-        />
-    )
+      <InputToolbar
+        {...props}
+        containerStyle={{
+          backgroundColor: '#252525',
+          paddingHorizontal: 10,
+          height: 75,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderTopWidth: 0,
+        }}
+        primaryStyle={{
+          backgroundColor: '#1C1C1C',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 45,
+        }}
+      />
+    );
   };
 
   const renderSend = (props: SendProps<IMessage>) => {
     return (
-      <Send {...props} containerStyle={{ borderWidth: 0, backgroundColor: '#252525',justifyContent: 'center', alignItems: 'center', paddingStart: 20 }}>
-          <Octicons name='paper-airplane' size={24} color='white' />      
+      <Send
+        {...props}
+        containerStyle={{
+          borderWidth: 0,
+          backgroundColor: '#252525',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingStart: 20,
+        }}
+      >
+        <Octicons name="paper-airplane" size={24} color="white" />
       </Send>
     );
-  }
+  };
 
   const renderAvatar = (props: AvatarProps<IMessage>) => {
-    return (
-      <Image source={{ uri: image }} className='w-[35px] h-[35px]' />
-    )
-  }
+    return <Image source={{ uri: image }} className="w-[35px] h-[35px]" />;
+  };
 
   const renderTime = (props: TimeProps<IMessage>) => {
     return (
       <Time
-      {...props}
+        {...props}
         timeTextStyle={{
           left: {
             color: '#000',
@@ -138,13 +162,12 @@ export const useChat = ({ online, user, image }: Chat) => {
 
   const Loading = () => {
     return (
-        <View className='flex-1 justify-center items-center'>
-            <ActivityIndicator color={'#FF9A1F'} size={50} />
-        </View>
-    )
-  }
-    
-    
+      <View className="flex-1 justify-center items-center">
+        <ActivityIndicator color={'#FF9A1F'} size={50} />
+      </View>
+    );
+  };
+
   return {
     image,
     user,
@@ -158,7 +181,6 @@ export const useChat = ({ online, user, image }: Chat) => {
     renderAvatar,
     renderTime,
     isLoading,
-    Loading
-  }
-}
-
+    Loading,
+  };
+};

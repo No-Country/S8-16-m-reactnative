@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Alert,
   Modal,
@@ -7,13 +7,13 @@ import {
   Pressable,
   View,
   Image,
-  TextInput
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
+  TextInput,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 interface Props {
   image?: string;
@@ -26,17 +26,15 @@ interface Props {
 const ModalBook = ({ image, title, description, genre, type }: Props) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [form, setForm] = useState<Props>({
-    title: title,   
+    title: title,
     description: description,
-    genre: genre,   
+    genre: genre,
     type: type,
-    });  
-  
-  const onChange = (text: string, id: string) => {
-    
-    setForm({ ...form, [id]: text});
+  });
 
-    };
+  const onChange = (text: string, id: string) => {
+    setForm({ ...form, [id]: text });
+  };
 
   return (
     <View style={styles.centeredView} className="justify-self-end">
@@ -62,27 +60,26 @@ const ModalBook = ({ image, title, description, genre, type }: Props) => {
                   className="bg-[#606060] p-2 text-base font-bold text-bookWhite"
                   placeholderTextColor="#4D4D4D"
                   placeholder="Cambiar titulo"
-                //   editable={false}
+                  //   editable={false}
                   value={form.title}
                   id="title"
-                  onChangeText={(e)=> onChange(e, "title")}
-                //   editable={false}
-                  
+                  onChangeText={(e) => onChange(e, 'title')}
+                  //   editable={false}
                 />
                 {/* <Text className="text-base font-bold text-bookWhite">
                   {title}
                 </Text> */}
- 
-                  <View className="relative bg-bookYellow p-2 rounded-full">
-                    <Ionicons name="md-pencil" size={28} color="black" />
-                  </View>
+
+                <View className="relative bg-bookYellow p-2 rounded-full">
+                  <Ionicons name="md-pencil" size={28} color="black" />
+                </View>
               </View>
               <View className="flex relative justify-center items-center">
                 <Image
-                  source={require("../../../assets/GenresBooks/harry.png")}
+                  source={require('../../../assets/GenresBooks/harry.png')}
                   style={{ width: 120, height: 200 }}
                 />
-                
+
                 <View className="absolute right-10 -bottom-5 bg-bookYellow p-2 rounded-full">
                   <Ionicons name="md-pencil" size={28} color="black" />
                 </View>
@@ -102,7 +99,7 @@ const ModalBook = ({ image, title, description, genre, type }: Props) => {
               </View>
               <View className="flex gap-2 flex-row justify-between ">
                 <View className="flex flex-row justify-center items-center px-5 py-3 rounded-3xl bg-bookWhite">
-                  {type === "Trueque" ? (
+                  {type === 'Trueque' ? (
                     <MaterialIcons
                       name="compare-arrows"
                       size={24}
@@ -162,11 +159,11 @@ const ModalBook = ({ image, title, description, genre, type }: Props) => {
 
 const styles = StyleSheet.create({
   centeredView: {
-    height: "100%",
+    height: '100%',
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.4)",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
 });
 

@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: {},
 };
 
 export const booksSlice = createSlice({
-  name: "books",
+  name: 'books',
   initialState: initialState,
   reducers: {
     addBook: (state, action) => {
-      console.log("addBook");
+      console.log('addBook');
     },
   },
 });
