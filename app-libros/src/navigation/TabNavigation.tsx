@@ -6,62 +6,58 @@ import { SearchScreen } from '../screens/SearchScreen';
 import { ChatMainScreen } from '../screens/ChatMainScreen';
 import { LibraryScreen } from '../screens/LibraryScreen';
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 export const TabNavigation = () => {
   return (
-
-    <Tab.Navigator 
-      screenOptions={{ 
+    <Tab.Navigator
+      screenOptions={{
         headerShown: false,
         tabBarLabelStyle: {
-          fontSize: 12
+          fontSize: 12,
         },
         tabBarActiveTintColor: '#606060',
-        tabBarInactiveTintColor: '#000'
+        tabBarInactiveTintColor: '#000',
+      }}
+    >
+      <Tab.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? 'home' : 'home-outline'}
+              size={22}
+              color="#606060"
+            />
+          ),
         }}
-      >
-      <Tab.Screen 
-      name="HomeScreen" 
-      component={HomeScreen} 
-      options={{
+      />
 
-        title: 'Home',
-        tabBarIcon: ({focused}) => (
+      <Tab.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          title: 'Buscar',
+        }}
+      />
 
-          <Ionicons name={focused ? 'home' : 'home-outline'} size={22} color='#606060'/>
+      <Tab.Screen
+        name="ChatMainScreen"
+        component={ChatMainScreen}
+        options={{
+          title: 'Chats',
+        }}
+      />
 
-        ),
-
-      }}/>
-     
-            
-        <Tab.Screen 
-          name="SearchScreen" 
-          component={SearchScreen} 
-          options={{
-            title: 'Buscar'
-          }}
-        />
-
-        <Tab.Screen 
-          name="ChatMainScreen" 
-          component={ChatMainScreen}
-          options={{
-            title: 'Chats'
-          }} 
-        />
-
-        <Tab.Screen 
-          name="LibraryScreen" 
-          component={LibraryScreen} 
-          options={{
-            title: 'Biblioteca'
-          }}
-        />
-
-
+      <Tab.Screen
+        name="LibraryScreen"
+        component={LibraryScreen}
+        options={{
+          title: 'Biblioteca',
+        }}
+      />
     </Tab.Navigator>
-  )
-}
-
+  );
+};
