@@ -14,7 +14,6 @@ export type RootStackParams = {
 const Stack = createStackNavigator<RootStackParams>();
 
 export const MainNavigation = () => {
-
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -23,11 +22,12 @@ export const MainNavigation = () => {
         }}
         initialRouteName="OnboardingStack"
       >
+
         <Stack.Screen name='OnboardingStack' component={OnboardingStack} />
         <Stack.Screen name='InnerStack' component={InnerStack} />
         <Stack.Screen name='StackNavigation' component={StackNavigation} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-

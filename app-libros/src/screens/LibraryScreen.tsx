@@ -6,9 +6,7 @@ export const LibraryScreen = () => {
     <View>
       <Text>LibraryScreen</Text>
     </View>
-  )
-}
+  );
+};
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});
