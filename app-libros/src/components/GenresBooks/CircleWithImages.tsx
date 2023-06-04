@@ -50,7 +50,7 @@ export default function CircleWithImages({
       <View className="" style={CircleWithImagesStyles.imageContainer}>
         <Image source={images[0]} style={CircleWithImagesStyles.image} />
         <View
-          className="flex absolute items-center w-full h-full top-0"
+          className="flex absolute items-center w-full h-full top-0 left-0"
           style={{
             width: '136%',
             paddingHorizontal: '12%',

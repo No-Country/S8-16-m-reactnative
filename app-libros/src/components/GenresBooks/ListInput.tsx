@@ -6,29 +6,42 @@ import {
   TouchableOpacity,
   Animated,
   View,
+  PanResponder,
 } from 'react-native';
 const downArrow = require('../../../assets/GenresBooks/downArrow.svg');
 
 export function ListInput({
   list,
   placeholder,
-  layoutChange = (a) => {},
+  layoutChange = () => {},
   style = {},
-  onPressItem = (e) => {},
+  onPressItem = () => {},
+  closeAutomatically = true,
+  labelStyle = {},
+  showAll = [true],
+  itemListStyle = {}
 }: {
   list: Array<{}> | [];
   placeholder: string;
-  layoutChange?: (args: any) => any;
-  style?: {}; //
-  onPressItem?: (args: any) => any;
+  layoutChange?: (...args: any) => any;
+  style?: {};
+  onPressItem?: (...args: any) => any;
+  closeAutomatically?: boolean;
+  labelStyle?:{};
+  showAll?: Array<boolean | number | any>;
+  itemListStyle?: {};
 }) {
+
   const buttonRef: {} | any = useRef(null);
 
   const [touchableOpacitySize, setTouchableOpacitySize] = useState({
     width: 0,
     height: 0,
   });
-  const heightList = (touchableOpacitySize.height / 100) * 90 * list.length;
+  const heightList = showAll[0]
+    ? (touchableOpacitySize.height / 100) * 90 * list.length
+    : ((touchableOpacitySize.height / 100) * 90 + 1.2) * showAll[1];
+  const heightListAll = (touchableOpacitySize.height / 100) * 90 * list.length;
 
   const animationTranslateY = useState(new Animated.Value(0))[0];
   const animationIconRotateZ = useState(new Animated.Value(0))[0];
@@ -54,7 +67,7 @@ export function ListInput({
             }
           }
         );
-      }, 1000);
+      }, 500);
     }
     init();
   }, []);
@@ -77,27 +90,39 @@ export function ListInput({
   });
 
   const renderItemList = () => {
-    const listReturn = list.map((item: any) => {
+    const listReturn = list.map((item: any, index: number) => {
       return (
         <TouchableOpacity
-          key={item.title + 'list'}
-          onPress={() => onPressItem(item)}
+          key={item.title || item.name + 'list'}
+          onPress={() => {
+            if (item !== '') {
+              onPressItem(item);
+              closeAutomatically && isOpenList();
+            }
+          }}
           style={{
             width: '100%',
-            height: (touchableOpacitySize.height / 100) * 90,
+            borderTopWidth: 2,
+            borderTopColor: index === 0 ? '#606060' : 'transparent',
             borderBottomWidth: 2,
-            borderBottomColor: item.title
-              ? '#606060'
-              : item === ''
-              ? 'transparent'
-              : '#606060',
+            borderBottomColor:
+              item.title || item.name
+                ? '#606060'
+                : item === ''
+                ? 'transparent'
+                : '#606060',
             paddingLeft: 30,
             justifyContent: 'flex-end',
             paddingBottom: '2%',
+            ...itemListStyle,
+            height:
+              index === 0
+                ? (touchableOpacitySize.height / 100) * 90 + 2
+                : (touchableOpacitySize.height / 100) * 90,
           }}
         >
           <Text className="text-xs text-white">
-            {item.title ? item.title : item}
+            {item.title ? item.title : item.name ? item.name : item}
           </Text>
         </TouchableOpacity>
       );
@@ -128,14 +153,45 @@ export function ListInput({
     setSeeList(!seeList);
   };
 
+  const scrollViewAnim = useState(new Animated.Value(0))[0];
+  const transformScrollAnim = scrollViewAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -heightList],
+  });
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderMove: (_: any, gestureState: any) => {
+      const { dy } = gestureState;
+      let dragOffset = (dy / heightList) * -1;
+      dragOffset = dragOffset + scrollPosition;
+      if (
+        dragOffset >= 0 &&
+        !showAll[0] &&
+        heightListAll - dragOffset * heightList >= heightList
+      ) {
+        scrollViewAnim.setValue(dragOffset);
+        gestureState.dragOffset = dragOffset;
+      } else if (dragOffset < 0) {
+        scrollViewAnim.setValue(0);
+        gestureState.dragOffset = 0;
+      }
+    },
+    onPanResponderRelease: (e: any, gestureState: any) => {
+      const { dragOffset } = gestureState;
+      if (dragOffset) {
+        setScrollPosition(dragOffset);
+      }
+    },
+  });
+
   return (
-    <TouchableOpacity
+    <View
+      ref={buttonRef}
       style={{
         width: '80%',
-        height: (touchableOpacitySize.width / 100) * 15,
-        ...ListInputStyles.parentContainer,
         borderRadius: (touchableOpacitySize.width / 100) * 2,
-
+        ...ListInputStyles.parentContainer,
         borderBottomLeftRadius: seeList
           ? 0
           : (touchableOpacitySize.width / 100) * 2,
@@ -144,18 +200,45 @@ export function ListInput({
           : (touchableOpacitySize.width / 100) * 2,
         ...style,
       }}
-      activeOpacity={1}
-      ref={buttonRef}
-      onPress={isOpenList}
     >
-      <Text className="text-xs">{placeholder}</Text>
-      <Animated.View
+      <TouchableOpacity
         style={{
-          transform: [{ rotateZ: iconRotateZ }],
+          width: '100%',
+          height: (touchableOpacitySize.width / 100) * 15,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          backgroundColor: '#272727',
+          paddingLeft: 30,
+          paddingRight: 19,
+          borderRadius: (touchableOpacitySize.width / 100) * 2,
+          borderBottomLeftRadius: isOpenSeeList
+            ? 0
+            : (touchableOpacitySize.width / 100) * 2,
+          borderBottomRightRadius: isOpenSeeList
+            ? 0
+            : (touchableOpacitySize.width / 100) * 2,
+          ...labelStyle,
         }}
+        onPress={isOpenList}
       >
-        <Image className="w-2.5 h-3.5" source={downArrow} />
-      </Animated.View>
+        <Text
+          className="text-xs"
+          style={{
+            color: '#4D4D4D',
+          }}
+        >
+          {placeholder}
+        </Text>
+        <Animated.View
+          style={{
+            transform: [{ rotateZ: iconRotateZ }],
+          }}
+        >
+          <Image className="w-2.5 h-3.5" source={downArrow} />
+        </Animated.View>
+      </TouchableOpacity>
+
       {list && (
         <View
           style={{
@@ -165,6 +248,8 @@ export function ListInput({
             height: isOpenSeeList ? heightList : 0,
             overflow: 'hidden',
             backgroundColor: 'transparent',
+            borderBottomLeftRadius: 10,
+            borderBottomRightRadius: 10,
           }}
         >
           <Animated.View
@@ -176,15 +261,20 @@ export function ListInput({
               borderBottomLeftRadius: 10,
               borderBottomRightRadius: 10,
               transform: [{ translateY: listTranslateY }],
-              borderTopWidth: 2,
-              borderTopColor: '#606060',
+              overflow: 'hidden',
+              height: heightList,
             }}
           >
-            {renderItemList()}
+            <Animated.View
+              style={{ transform: [{ translateY: transformScrollAnim }] }}
+              {...panResponder.panHandlers}
+            >
+              {renderItemList()}
+            </Animated.View>
           </Animated.View>
         </View>
       )}
-    </TouchableOpacity>
+    </View>
   );
 }
 
@@ -192,13 +282,7 @@ const ListInputStyles = StyleSheet.create({
   parentContainer: {
     maxWidth: 500,
     maxHeight: 70,
-    backgroundColor: '#272727',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingLeft: 30,
-    paddingRight: 19,
-    position: 'relative',
     zIndex: 999999999999999999999999999999999999999999999999,
+    backgroundColor: '#272727',
   },
 });
