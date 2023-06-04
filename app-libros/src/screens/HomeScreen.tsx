@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   Button,
@@ -9,89 +9,102 @@ import {
   View,
   FlatList,
   TouchableOpacity,
+  Pressable,
+  Alert,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { SvgComponent } from '../components/Svg';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Modal from 'react-native-modal';
+import { Ionicons } from '@expo/vector-icons';
 import { RootStackParams } from '../navigation/StackNavigation';
+import { getAllBooks } from '../services/books';
+import { AntDesign } from '@expo/vector-icons';
+import { Book } from '../interfaces/book.interface';
+import ModalHome from '../components/Home/Modal';
 
 export const HomeScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
-  const cardsData = [
-    {
-      id: 1,
-      text: '@kapipiola',
-      link: 'https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1623078210-la-naranja-mecanica-anthony-burgess-201505261226.jpg?crop=1xw:1xh;center,top&resize=480:*',
-    },
-    {
-      id: 2,
-      text: '@potrero',
-      link: 'https://4.bp.blogspot.com/-Gstf39v_5Fk/VYcRdX1F3VI/AAAAAAAA17k/HEDty5lorwM/s1600/HarryPotterMisterioPrincipe.jpg',
-    },
-    {
-      id: 3,
-      text: '@leanfran',
-      link: 'https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1623080744-41CDgO39Q7L._SL500_.jpg',
-    },
-    {
-      id: 4,
-      text: '@tulipan',
-      link: 'https://s-media-cache-ak0.pinimg.com/originals/23/64/31/23643180b97ce3b3129e8ea096fc8a79.jpg',
-    },
-    {
-      id: 5,
-      text: '@oscar49',
-      link: 'https://s3.amazonaws.com/virginia.webrand.com/virginia/344/TUjmSfGDgg2/001d5553bc88ae1b412577eba411c8c2.jpg?1660234137',
-    },
-    {
-      id: 6,
-      text: '@user32',
-      link: 'https://i.pinimg.com/736x/76/6f/3d/766f3d034ffe6a13acfbe9394553c531--novel-cover-design-book-cover-designs.jpg',
-    },
-    {
-      id: 7,
-      text: '@fandeharry',
-      link: 'https://imagessl2.casadellibro.com/a/l/t0/52/9788499086552.jpg',
-    },
-    {
-      id: 8,
-      text: '@userreal',
-      link: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/how-to-creative-ideas-book-cover-design-template-52f7ec58f53452b9b46a351cea1bd9a1_screen.jpg?ts=1636992082',
-    },
-    {
-      id: 9,
-      text: '@jose21',
-      link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYSSqqCErh-lvWU_8KVa_O9W4JzlLO6XWAGA&usqp=CAU',
-    },
-    {
-      id: 10,
-      text: '@Card4',
-      link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCLobvPSOq9fjamuS8pRXKv8ENzjQjB2ACOw&usqp=CAU',
-    },
-  ];
+  const [books, setBooks] = useState<Book[]>([]);
 
-  const BOOKS = [
-    {
-      id: 1,
-      title: 'La naranja mecanica',
-      descripcion: 'Quiero cambiar este libro por uno del genero romantico',
-      image: require('../../assets/books/naranja-mecanica.png'),
-    },
+  // const cardsData = [
+  //   {
+  //     id: 1,
+  //     text: '@kapipiola',
+  //     link: 'https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1623078210-la-naranja-mecanica-anthony-burgess-201505261226.jpg?crop=1xw:1xh;center,top&resize=480:*',
+  //   },
+  //   {
+  //     id: 2,
+  //     text: '@potrero',
+  //     link: 'https://4.bp.blogspot.com/-Gstf39v_5Fk/VYcRdX1F3VI/AAAAAAAA17k/HEDty5lorwM/s1600/HarryPotterMisterioPrincipe.jpg',
+  //   },
+  //   {
+  //     id: 3,
+  //     text: '@leanfran',
+  //     link: 'https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1623080744-41CDgO39Q7L._SL500_.jpg',
+  //   },
+  //   {
+  //     id: 4,
+  //     text: '@tulipan',
+  //     link: 'https://s-media-cache-ak0.pinimg.com/originals/23/64/31/23643180b97ce3b3129e8ea096fc8a79.jpg',
+  //   },
+  //   {
+  //     id: 5,
+  //     text: '@oscar49',
+  //     link: 'https://s3.amazonaws.com/virginia.webrand.com/virginia/344/TUjmSfGDgg2/001d5553bc88ae1b412577eba411c8c2.jpg?1660234137',
+  //   },
+  //   {
+  //     id: 6,
+  //     text: '@user32',
+  //     link: 'https://i.pinimg.com/736x/76/6f/3d/766f3d034ffe6a13acfbe9394553c531--novel-cover-design-book-cover-designs.jpg',
+  //   },
+  //   {
+  //     id: 7,
+  //     text: '@fandeharry',
+  //     link: 'https://imagessl2.casadellibro.com/a/l/t0/52/9788499086552.jpg',
+  //   },
+  //   {
+  //     id: 8,
+  //     text: '@userreal',
+  //     link: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/how-to-creative-ideas-book-cover-design-template-52f7ec58f53452b9b46a351cea1bd9a1_screen.jpg?ts=1636992082',
+  //   },
+  //   {
+  //     id: 9,
+  //     text: '@jose21',
+  //     link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYSSqqCErh-lvWU_8KVa_O9W4JzlLO6XWAGA&usqp=CAU',
+  //   },
+  //   {
+  //     id: 10,
+  //     text: '@Card4',
+  //     link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCLobvPSOq9fjamuS8pRXKv8ENzjQjB2ACOw&usqp=CAU',
+  //   },
+  // ];
 
-    {
-      id: 2,
-      title: 'El bazar de los malos sueños',
-      descripcion: 'Quiero cambiar este libro por uno del genero romantico',
-      image: require('../../assets/books/stephen-king.png'),
-    },
-  ];
+  // const BOOKS = [
+  //   {
+  //     id: 1,
+  //     title: 'La naranja mecanica',
+  //     descripcion: 'Quiero cambiar este libro por uno del genero romantico',
+  //     image: require('../../assets/books/naranja-mecanica.png'),
+  //   },
+
+  //   {
+  //     id: 2,
+  //     title: 'El bazar de los malos sueños',
+  //     descripcion: 'Quiero cambiar este libro por uno del genero romantico',
+  //     image: require('../../assets/books/stephen-king.png'),
+  //   },
+  // ];
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
+
+  useEffect(() => {
+    getAllBooks().then((initialBooks) => {
+      setBooks(initialBooks);
+    });
+  }, []);
 
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -136,10 +149,10 @@ export const HomeScreen = () => {
             className="p-4"
             showsHorizontalScrollIndicator={false}
           >
-            {cardsData.map((card) => (
-              <View key={card.id}>
+            {books.map((book, index) => (
+              <View key={index}>
                 <Text className="absolute -left-3 top-1 -z-20  text-[60px] font-bold text-[#FF8A00]">
-                  0{card.id}
+                  0{index + 1}
                 </Text>
 
                 <TouchableOpacity
@@ -150,18 +163,18 @@ export const HomeScreen = () => {
                 >
                   <View className="">
                     <Image
-                      source={{ uri: card.link }}
+                      source={{ uri: book.image }}
                       className="w-[93px] h-[149px] shadow-md shadow-black"
                     />
                   </View>
 
                   <View className="flex flex-row items-center p-1 justify-around w-full">
                     <Text className="text-white font-semibold  text-[11px]">
-                      {card.text}
+                      @{book.userName}
                     </Text>
 
                     <Image
-                      source={require('../../assets/imgEj/fotoPerfil.png')}
+                      source={{ uri: book.userImage }}
                       className=" w-6 h-6"
                     />
                   </View>
@@ -172,27 +185,11 @@ export const HomeScreen = () => {
                   <Ionicons name="bookmark-outline" size={20} color="white" />
                 </View>
 
-                <Modal
-                  isVisible={isModalVisible}
-                  className="flex justify-start bg-background max-h-[60vh] mt-12 rounded-lg"
-                  onBackdropPress={toggleModal}
-                >
-                  <View className="flex items-center bg-bookGrey">
-                    <Image
-                      source={{ uri: card.link }}
-                      className="w-[93px] h-[149px] shadow-md shadow-black"
-                    />
-                    <View className="absolute top-0 z-30  bg-[#252525] rounded-bl-lg rounded-tr-lg right-0 p-3 shadow-sm shadow-black">
-                      {/* Agrega aquí el icono que deseas mostrar */}
-                      <Ionicons
-                        name="bookmark-outline"
-                        size={20}
-                        color="white"
-                      />
-                    </View>
-                  </View>
-                  <Text>{card.id}</Text>
-                </Modal>
+                <ModalHome
+                  isModalVisible={isModalVisible}
+                  toggleModal={toggleModal}
+                  book={book}
+                />
               </View>
             ))}
           </ScrollView>
@@ -203,23 +200,52 @@ export const HomeScreen = () => {
             Libros recomendados
           </Text>
 
-          <ScrollView showsHorizontalScrollIndicator={false} className="p-4">
-            {BOOKS.map((books) => (
-              <View key={books.id}>
-                <View className="mt-8 flex flex-row flex-1">
-                  <View className="bg-white w-80 rounded-lg">
-                    <View className="p-5">
-                      <View className="flex w-[30%]">
-                        <Image
-                          source={books.image}
-                          className="object-contain"
-                        />
-                      </View>
+          <ScrollView showsHorizontalScrollIndicator={false} className="p-4 ">
+            {books.map((book) => (
+              <View
+                key={book.uid}
+                className="mt-8 flex flex-row flex-1  bg-[#48484d] w-80 rounded-2xl overflow-hidden"
+              >
+                {/* {console.log(book)} */}
+                <View className="flex w-[30%] bg-[#3A3A3A] p-3 items-center justify-center">
+                  <Image
+                    // source={require('../../assets/books/naranja-mecanica.png')}
+                    source={{ uri: book.image }}
+                    // className="object-contain"
+                    className="w-[80px] h-[120px]"
+                  />
+                </View>
 
-                      <View className="flex w-[70%]">
-                        <Text className="text-center">{books.title}</Text>
-                      </View>
-                    </View>
+                <View className="flex relative w-[70%] p-2 items-center gap-2">
+                  <View
+                    className="absolute -top-0 -right-2 p-2 bg-[#252525]"
+                    style={{ borderBottomLeftRadius: 15 }}
+                  >
+                    <Pressable
+                      onPress={() => {
+                        Alert.alert('Se ha agregado a favoritos');
+                      }}
+                    >
+                      <AntDesign name="hearto" size={24} color="white" />
+                    </Pressable>
+                  </View>
+                  <View className="flex gap-2 mt-5">
+                    <Text className="text-bookWhite font-medium text-sm">
+                      {book.title}
+                    </Text>
+                    <Text className="text-bookWhite  text-xs">
+                      {book.description}
+                    </Text>
+                  </View>
+                  <View className="flex flex-row items-center p-1 justify-end w-full gap-2">
+                    <Text className="text-white font-semibold  text-[11px] justify-end">
+                      @{book.userName}
+                    </Text>
+
+                    <Image
+                      source={{ uri: book.userImage }}
+                      className=" w-10 h-10"
+                    />
                   </View>
                 </View>
               </View>
