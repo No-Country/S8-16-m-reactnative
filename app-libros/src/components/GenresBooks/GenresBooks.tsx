@@ -47,9 +47,21 @@ export const listOfGenres = [
 
 const { width, height } = Dimensions.get('screen');
 
+const creatingKey = () => {
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < 100; i += 1) {
+    result += characters.charAt(
+      Math.floor(Math.random() * characters.length - 1)
+    );
+  }
+  return result;
+};
+
 export const GenresBooks = () => {
   const [listOfGenresInButtons, setListOfGenresInButtons] = useState<
-    Array<{ title: string; icon: string }>
+    Array<any>
   >([]);
 
   const CreateGenreButtons = () => {
@@ -59,8 +71,14 @@ export const GenresBooks = () => {
     const list = listOfGenresInButtons.map((item) => {
       return (
         <TouchableOpacity
-          key={item.title}
+          key={creatingKey()}
           className="px-5 py-2 flex-row items-center justify-center"
+          onPress={() => {
+            const list = listOfGenresInButtons.filter(
+              (ite) => ite.title !== item.title
+            );
+            setListOfGenresInButtons(list);
+          }}
           style={{
             backgroundColor: '#FF9A1F',
             gap: 12,
@@ -68,7 +86,9 @@ export const GenresBooks = () => {
           }}
         >
           <Image source={listOfGenresIcons[item.icon]} className="h-3 w-3.5" />
-          <Text className="text-xs text-black h-4">{item.title}</Text>
+          <Text className="text-xs text-black h-4">
+            {item.title || item.name}
+          </Text>
         </TouchableOpacity>
       );
     });
@@ -214,6 +234,7 @@ export const GenresBooks = () => {
             lis.push(e);
             setListOfGenresInButtons([...lis]);
           }}
+          // showAll={[false, 6]} // first value that says if displayedeverything, second value quantity
         />
         <View
           className="flex flex-row flex-wrap w-full px-3 mb-7 mt-7"
