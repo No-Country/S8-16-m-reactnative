@@ -1,30 +1,34 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Button, Text, TouchableOpacity, View, TextInput, Image, StyleSheet } from 'react-native';
+import {
+  Button,
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput,
+  Image,
+  StyleSheet,
+} from 'react-native';
 import { RootStackParams } from '../navigation/MainNavigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-
 export const LoginScreen = () => {
-
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
 
   return (
-    <View className='flex-1 justify-center items-center bg-[#1E1E1E]'>
+    <View className="flex-1 justify-center items-center bg-[#1E1E1E]">
       <Image
         source={require('../../assets/logo.png')}
         style={{ width: 154, height: 69 }}
       ></Image>
-      <Text
-        className='text-[#FFFFFF] text-base mb-7 mt-5'
-      >¡Bienvenido!</Text>
+      <Text className="text-[#FFFFFF] text-base mb-7 mt-5">¡Bienvenido!</Text>
       <TextInput
-        className='bg-[#272727] px-8 py-3 mb-6 w-4/5 rounded-xl text-xs text-white'
+        className="bg-[#272727] px-8 py-3 mb-6 w-4/5 rounded-xl text-xs text-white"
         placeholderTextColor="#4D4D4D"
         placeholder="Ingresa tu usuario"
       />
       <TextInput
-        className='bg-[#272727] px-8 py-3 mb-7 w-4/5 rounded-xl text-xs text-white'
+        className="bg-[#272727] px-8 py-3 mb-7 w-4/5 rounded-xl text-xs text-white"
         placeholderTextColor="#4D4D4D"
         placeholder="Ingresa tu contraseña"
         secureTextEntry
@@ -33,23 +37,20 @@ export const LoginScreen = () => {
       <TouchableOpacity
         onPress={() => navigation.navigate('StackNavigation' as never)}
         activeOpacity={0.8}
-        className='bg-[#0F0F0F] px-8 py-4 mb-3 w-4/5 rounded-xl'
+        className="bg-[#0F0F0F] px-8 py-4 mb-3 w-4/5 rounded-xl"
       >
-        <Text className='text-[#FFFFFF] text-xs self-center'>
-          INGRESAR
-        </Text>
-
+        <Text className="text-[#FFFFFF] text-xs self-center">INGRESAR</Text>
       </TouchableOpacity>
-      <Text className='text-[#606060] text-xs self-center'>
+      <Text className="text-[#606060] text-xs self-center">
         Iniciar sesion con
       </Text>
 
       <TouchableOpacity
         onPress={() => navigation.navigate('HomeScreen' as never)}
         activeOpacity={0.8}
-        className='bg-[#4C4C4C] px-8 py-4 mt-3 w-4/5 rounded-xl'
+        className="bg-[#4C4C4C] px-8 py-4 mt-3 w-4/5 rounded-xl"
       >
-        <Text className='text-[#FFFFFF] text-xs self-center'>
+        <Text className="text-[#FFFFFF] text-xs self-center">
           INGRESAR CON GOOGLE
         </Text>
       </TouchableOpacity>
@@ -64,15 +65,11 @@ export const LoginScreen = () => {
         onPress={() => navigation.navigate('Register1' as never)}
         activeOpacity={0.8}
       >
-        <Text className='text-[#4C4C4C] text-xs self-center'>
-          Registrarme
-        </Text>
+        <Text className="text-[#4C4C4C] text-xs self-center">Registrarme</Text>
       </TouchableOpacity>
-
-
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -88,7 +85,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.3,
     borderColor: '#606060',
   },
-  circle: { 
+  circle: {
     marginLeft: 17,
     marginRight: 17,
     width: 10,

@@ -1,19 +1,17 @@
-import * as React from "react";
-import Svg, { Path, Defs, Pattern, Use, Image } from "react-native-svg";
+import * as React from 'react';
+import Svg, { Path, Defs, Pattern, Use, Image } from 'react-native-svg';
 
 interface SvgComponentProps {
   width?: number;
   height?: number;
 }
 
- export const SvgComponent: React.FC<SvgComponentProps> = ({ width = 32, height = 33 }) => {
+export const SvgComponent: React.FC<SvgComponentProps> = ({
+  width = 32,
+  height = 33,
+}) => {
   return (
-    <Svg
-      width={width}
-      height={height}
-      viewBox="0 0 32 33"
-      fill="none"
-    >
+    <Svg width={width} height={height} viewBox="0 0 32 33" fill="none">
       <Path fill="url(#pattern0)" d="M0 0H32V33H0z" />
       <Defs>
         <Pattern
@@ -37,4 +35,3 @@ interface SvgComponentProps {
     </Svg>
   );
 };
-

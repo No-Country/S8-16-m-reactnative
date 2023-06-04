@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { Image, Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
-import { RootStackParams } from "../navigation/MainNavigation";
-import { StackNavigationProp } from "@react-navigation/stack";
-import ModalBook from "../components/Profile/Modal";
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import { RootStackParams } from '../navigation/MainNavigation';
+import { StackNavigationProp } from '@react-navigation/stack';
+import ModalBook from '../components/Profile/Modal';
 
 export const ProfileScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
 
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState('');
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -42,7 +42,7 @@ export const ProfileScreen = () => {
 
             <Image
               source={
-                image ? { uri: image } : require("../../assets/profile.png")
+                image ? { uri: image } : require('../../assets/profile.png')
               }
               style={{ width: 180, height: 180, borderRadius: 100 }}
             />
@@ -91,7 +91,7 @@ export const ProfileScreen = () => {
                 <View className="flex justify-center items-center w-[30%]  p-3 bg-bookGrey">
                   <Image
                     className="object-fit"
-                    source={require("../../assets/GenresBooks/harry.png")}
+                    source={require('../../assets/GenresBooks/harry.png')}
                     style={{ width: 100, height: 150 }}
                   />
                 </View>
@@ -101,20 +101,18 @@ export const ProfileScreen = () => {
                       Harry Potter
                     </Text>
 
-
                     <Text className="text-bookWhite text-sm break-words font-light">
                       Quiero cambiar este libro por uno del genero romantico
                     </Text>
                   </View>
 
-                    <ModalBook
-                      image="../../assets/GenresBooks/harry.png"
-                      title="Harry Potter"
-                      genre="Fantasia"
-                      description="Quiero cambiar este libro por uno del genero romantico"
-                      type="Trueque"
-                    />
-
+                  <ModalBook
+                    image="../../assets/GenresBooks/harry.png"
+                    title="Harry Potter"
+                    genre="Fantasia"
+                    description="Quiero cambiar este libro por uno del genero romantico"
+                    type="Trueque"
+                  />
                 </View>
               </View>
 
@@ -133,13 +131,13 @@ export const ProfileScreen = () => {
             <View className="flex  bg-bookGrey rounded-2xl overflow-hidden justify-between">
               <View className="flex p-4 justify-center items-center">
                 <Image
-                  source={require("../../assets/profile.png")}
+                  source={require('../../assets/profile.png')}
                   style={styles.imageStyle}
                 />
                 <Text className="text-bookWhite">@#Kapipiola</Text>
               </View>
               <TouchableOpacity
-                onPress={() => navigation.navigate("ChatScreen")}
+                onPress={() => navigation.navigate('ChatScreen')}
               >
                 <View className="flex gap-2 justify-center items-center py-2 px-4  flex-row bg-bookDarkGrey">
                   <Text className="text-bookWhite text-xs">
@@ -153,13 +151,13 @@ export const ProfileScreen = () => {
             <View className="flex  bg-bookGrey rounded-2xl overflow-hidden justify-between">
               <View className="flex p-4 justify-center items-center">
                 <Image
-                  source={require("../../assets/profile.png")}
+                  source={require('../../assets/profile.png')}
                   style={styles.imageStyle}
                 />
                 <Text className="text-bookWhite">@#Kapipiola</Text>
               </View>
               <TouchableOpacity
-                onPress={() => navigation.navigate("ChatScreen")}
+                onPress={() => navigation.navigate('ChatScreen')}
               >
                 <View className="flex gap-2 justify-center items-center py-2 px-4  flex-row bg-bookDarkGrey">
                   <Text className="text-bookWhite text-xs">
@@ -173,13 +171,13 @@ export const ProfileScreen = () => {
             <View className="flex  bg-bookGrey rounded-2xl overflow-hidden justify-between">
               <View className="flex p-4 justify-center items-center">
                 <Image
-                  source={require("../../assets/profile.png")}
+                  source={require('../../assets/profile.png')}
                   style={styles.imageStyle}
                 />
                 <Text className="text-bookWhite">@#Kapipiola</Text>
               </View>
               <TouchableOpacity
-                onPress={() => navigation.navigate("ChatScreen")}
+                onPress={() => navigation.navigate('ChatScreen')}
               >
                 <View className="flex gap-2 justify-center items-center py-2 px-4  flex-row bg-bookDarkGrey">
                   <Text className="text-bookWhite text-xs">
@@ -193,13 +191,13 @@ export const ProfileScreen = () => {
             <View className="flex  bg-bookGrey rounded-2xl overflow-hidden justify-between">
               <View className="flex p-4 justify-center items-center">
                 <Image
-                  source={require("../../assets/profile.png")}
+                  source={require('../../assets/profile.png')}
                   style={styles.imageStyle}
                 />
                 <Text className="text-bookWhite">@#Kapipiola</Text>
               </View>
               <TouchableOpacity
-                onPress={() => navigation.navigate("ChatScreen")}
+                onPress={() => navigation.navigate('ChatScreen')}
               >
                 <View className="flex gap-2 justify-center items-center py-2 px-4  flex-row bg-bookDarkGrey">
                   <Text className="text-bookWhite text-xs">
@@ -219,17 +217,17 @@ export const ProfileScreen = () => {
 
 const styles = StyleSheet.create({
   booksContainer: {
-    width: "100%",
+    width: '100%',
     height: 50,
   },
   bookContainer: {
-    height: "100%",
+    height: '100%',
   },
   imageStyle: {
     width: 50,
     height: 50,
     borderRadius: 50,
     marginRight: 10,
-    objectFit: "cover",
+    objectFit: 'cover',
   },
 });
