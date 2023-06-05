@@ -11,11 +11,27 @@ export type RootStackParams = {
   OnboardingStack: undefined;
 };
 
+export const Theme = {
+  currentTheme: 'dark',
+  dark: true,
+  colors: {
+      primary: '#212121',
+      background: '#212121',
+      card: '#000',
+      text: '#000',
+      border: '#000',
+      notification: '#000',
+  },
+  dividerColor: '#000'
+}
+
 const Stack = createStackNavigator<RootStackParams>();
 
 export const MainNavigation = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={Theme}
+    >
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
