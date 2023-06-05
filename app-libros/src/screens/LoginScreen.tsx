@@ -1,18 +1,51 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import {
-  Button,
-  Text,
-  TouchableOpacity,
-  View,
-  TextInput,
-  Image,
-  StyleSheet,
-} from 'react-native';
+import React, { useState } from 'react';
+import { Button, Text, TouchableOpacity, View, TextInput, Image, StyleSheet, Alert } from 'react-native';
 import { RootStackParams } from '../navigation/MainNavigation';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../utils/firebaseConfig';
 
 export const LoginScreen = () => {
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleUser = (text: string) => {
+    setUser(text);
+  };
+
+  const handlePassword = (text: string) => {
+    setPassword(text);
+  };
+
+  const handleLogin = async () => {
+    try {
+
+      const usersRef = collection(db, 'usuarios');
+      const queryRef = query(usersRef, where('user', '==', user));
+      const querySnapshot = await getDocs(queryRef);
+
+      if (!querySnapshot.empty) {
+
+        const userDoc = querySnapshot.docs[0];
+        const userData = userDoc.data();
+
+        if (userData.password === password) {
+
+          navigation.navigate('StackNavigation' as never);
+        } else {
+          Alert.alert('Error', 'Contraseña incorrecta. Vuelve a intentarlo');
+        }
+      } else {
+        Alert.alert('Error', 'No se ha encontrado ninguna cuenta de Book Change asociada a este usuario. Vuelve a intentarlo o crea una cuenta.');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Ocurrió un error durante el inicio de sesión');
+    }
+  };
+
+
+
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
 
   return (
@@ -25,17 +58,21 @@ export const LoginScreen = () => {
       <TextInput
         className="bg-[#272727] px-8 py-3 mb-6 w-4/5 rounded-xl text-xs text-white"
         placeholderTextColor="#4D4D4D"
+        value={user}
+        onChangeText={handleUser}
         placeholder="Ingresa tu usuario"
       />
       <TextInput
         className="bg-[#272727] px-8 py-3 mb-7 w-4/5 rounded-xl text-xs text-white"
         placeholderTextColor="#4D4D4D"
+        value={password}
+        onChangeText={handlePassword}
         placeholder="Ingresa tu contraseña"
         secureTextEntry
       />
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('StackNavigation' as never)}
+        onPress={handleLogin}
         activeOpacity={0.8}
         className="bg-[#0F0F0F] px-8 py-4 mb-3 w-4/5 rounded-xl"
       >

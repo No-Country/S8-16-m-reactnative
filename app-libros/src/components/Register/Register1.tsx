@@ -1,16 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import {
-  Button,
-  Text,
-  TouchableOpacity,
-  View,
-  TextInput,
-  Image,
-  StyleSheet,
-  Alert,
-} from 'react-native';
-import { DatosForm, InnerStackParams } from '../../navigation/MainNavigation';
+import { Button, Text, TouchableOpacity, View, TextInput, Image, StyleSheet, Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../utils/firebaseConfig';
@@ -53,37 +43,10 @@ export const Register1: React.FC<FormularioProps> = ({ navigation }) => {
       navigation.navigate('Register2', {
         nameLastname,
         user,
-        password,
+        password
       });
     }
   };
-
-  // const [data, setData] = useState({
-  //   nameLastname: "",
-  //   user: "",
-  //   password: ""
-  // })
-
-  // const datos: DatosForm = {
-  //   nameLastname: "",
-  //   user: "",
-  //   password: "",
-  // };
-
-  // const handleInput = (name: string, value: string) => {
-  //   setData({ ...data, [name]: value});
-  // }
-
-  // const submit = ()=>{
-  //   const datos: DatosForm = {
-  //     nameLastname: data.nameLastname,
-  //     user: data.user,
-  //     password: data.password,
-  //   };
-
-  // }
-
-  // const navigation = useNavigation<StackNavigationProp<InnerStackParams>>();
 
   return (
     <View className="flex-1 justify-center items-center bg-[#1E1E1E]">
