@@ -150,7 +150,7 @@ export const HomeScreen = () => {
             showsHorizontalScrollIndicator={false}
           >
             {books.map((book, index) => (
-              <View key={index}>
+              <View key={index + 1}>
                 <Text className="absolute -left-3 top-1 -z-20  text-[60px] font-bold text-[#FF8A00]">
                   0{index + 1}
                 </Text>
@@ -164,7 +164,7 @@ export const HomeScreen = () => {
                   <View className="">
                     <Image
                       source={{ uri: book.image }}
-                      className="w-[93px] h-[149px] shadow-md shadow-black"
+                      className="w-[93px] h-[149px]"
                     />
                   </View>
 
@@ -201,17 +201,14 @@ export const HomeScreen = () => {
           </Text>
 
           <ScrollView showsHorizontalScrollIndicator={false} className="p-4 ">
-            {books.map((book) => (
+            {books.map((book, index) => (
               <View
-                key={book.uid}
+                key={index + 1}
                 className="mt-8 flex flex-row flex-1  bg-[#48484d] w-80 rounded-2xl overflow-hidden"
               >
-                {/* {console.log(book)} */}
                 <View className="flex w-[30%] bg-[#3A3A3A] p-3 items-center justify-center">
                   <Image
-                    // source={require('../../assets/books/naranja-mecanica.png')}
                     source={{ uri: book.image }}
-                    // className="object-contain"
                     className="w-[80px] h-[120px]"
                   />
                 </View>

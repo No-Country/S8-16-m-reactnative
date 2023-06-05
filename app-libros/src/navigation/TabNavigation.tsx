@@ -15,9 +15,14 @@ export const TabNavigation = () => {
         headerShown: false,
         tabBarLabelStyle: {
           fontSize: 12,
+          color: '#606060'
         },
         tabBarActiveTintColor: '#606060',
         tabBarInactiveTintColor: '#000',
+        tabBarStyle: {
+          backgroundColor: '#212121'
+        }
+        
       }}
     >
       <Tab.Screen
@@ -40,6 +45,13 @@ export const TabNavigation = () => {
         component={SearchScreen}
         options={{
           title: 'Buscar',
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? 'ios-search' : 'ios-search-outline'}
+              size={22}
+              color="#606060"
+            />
+          ),
         }}
       />
 
@@ -48,6 +60,13 @@ export const TabNavigation = () => {
         component={ChatMainScreen}
         options={{
           title: 'Chats',
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? 'chatbubble-ellipses' : 'chatbubble-ellipses-outline'}
+              size={22}
+              color="#606060"
+            />
+          ),
         }}
       />
 
@@ -56,6 +75,13 @@ export const TabNavigation = () => {
         component={LibraryScreen}
         options={{
           title: 'Biblioteca',
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? 'library' : 'library-outline'}
+              size={22}
+              color="#606060"
+            />
+          ),
         }}
       />
     </Tab.Navigator>
