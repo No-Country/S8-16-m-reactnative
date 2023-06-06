@@ -1,5 +1,5 @@
-import { Book } from "../interfaces/book.interface";
-import { db } from "../utils/firebaseConfig";
+import { Book } from '../interfaces/book.interface';
+import { db } from '../utils/firebaseConfig';
 import {
   collection,
   query,
@@ -8,11 +8,10 @@ import {
   getDocs,
   setDoc,
   updateDoc,
-} from "firebase/firestore";
+} from 'firebase/firestore';
 // import { v4 } from "uuid";
 
-const booksRef = collection(db, "books");
-
+const booksRef = collection(db, 'books');
 
 // export const getAllBooks = async () => {
 //   const q = query(booksRef);
@@ -27,18 +26,17 @@ const booksRef = collection(db, "books");
 // };
 
 export const getAllBooks = async () => {
-    const booksSnapshot = await getDocs(booksRef);
-    const booksData: Book[] = [];
-  
-    booksSnapshot.forEach((doc) => {
-      const bookData = doc.data() as Book; // Cast the document data to the Book type
-      booksData.push(bookData);
-    });
-  
-    console.log("booksData", booksData);
-    return booksData;
-  };
+  const booksSnapshot = await getDocs(booksRef);
+  const booksData: Book[] = [];
 
+  booksSnapshot.forEach((doc) => {
+    const bookData = doc.data() as Book; // Cast the document data to the Book type
+    booksData.push(bookData);
+  });
+
+  // console.log("booksData", booksData);
+  return booksData;
+};
 
 // GET
 // const getAllPurchasesByUserId = async (id) => {
@@ -51,8 +49,6 @@ export const getAllBooks = async () => {
 //   });
 //   return data;
 // };
-
-
 
 // const getPurchaseById = async (id) => {
 //   console.log("id", id);

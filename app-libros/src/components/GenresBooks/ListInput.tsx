@@ -19,7 +19,7 @@ export function ListInput({
   closeAutomatically = true,
   labelStyle = {},
   showAll = [true],
-  itemListStyle = {}
+  itemListStyle = {},
 }: {
   list: Array<{}> | [];
   placeholder: string;
@@ -27,11 +27,10 @@ export function ListInput({
   style?: {};
   onPressItem?: (...args: any) => any;
   closeAutomatically?: boolean;
-  labelStyle?:{};
+  labelStyle?: {};
   showAll?: Array<boolean | number | any>;
   itemListStyle?: {};
 }) {
-
   const buttonRef: {} | any = useRef(null);
 
   const [touchableOpacitySize, setTouchableOpacitySize] = useState({

@@ -1,6 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Button, Text, TouchableOpacity, View, TextInput, Image, StyleSheet, Alert } from 'react-native';
+import {
+  Button,
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput,
+  Image,
+  StyleSheet,
+  Alert,
+} from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../utils/firebaseConfig';
@@ -43,7 +52,7 @@ export const Register1: React.FC<FormularioProps> = ({ navigation }) => {
       navigation.navigate('Register2', {
         nameLastname,
         user,
-        password
+        password,
       });
     }
   };
