@@ -15,14 +15,13 @@ export const TabNavigation = () => {
         headerShown: false,
         tabBarLabelStyle: {
           fontSize: 12,
-          color: '#606060'
+          color: '#606060',
         },
         tabBarActiveTintColor: '#606060',
         tabBarInactiveTintColor: '#000',
         tabBarStyle: {
-          backgroundColor: '#212121'
-        }
-        
+          backgroundColor: '#212121',
+        },
       }}
     >
       <Tab.Screen
@@ -62,7 +61,9 @@ export const TabNavigation = () => {
           title: 'Chats',
           tabBarIcon: ({ focused }) => (
             <Ionicons
-              name={focused ? 'chatbubble-ellipses' : 'chatbubble-ellipses-outline'}
+              name={
+                focused ? 'chatbubble-ellipses' : 'chatbubble-ellipses-outline'
+              }
               size={22}
               color="#606060"
             />

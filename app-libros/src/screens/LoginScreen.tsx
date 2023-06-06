@@ -1,6 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Button, Text, TouchableOpacity, View, TextInput, Image, StyleSheet, Alert } from 'react-native';
+import {
+  Button,
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput,
+  Image,
+  StyleSheet,
+  Alert,
+} from 'react-native';
 import { RootStackParams } from '../navigation/MainNavigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -20,31 +29,29 @@ export const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-
       const usersRef = collection(db, 'usuarios');
       const queryRef = query(usersRef, where('user', '==', user));
       const querySnapshot = await getDocs(queryRef);
 
       if (!querySnapshot.empty) {
-
         const userDoc = querySnapshot.docs[0];
         const userData = userDoc.data();
 
         if (userData.password === password) {
-
           navigation.navigate('StackNavigation' as never);
         } else {
           Alert.alert('Error', 'Contraseña incorrecta. Vuelve a intentarlo');
         }
       } else {
-        Alert.alert('Error', 'No se ha encontrado ninguna cuenta de Book Change asociada a este usuario. Vuelve a intentarlo o crea una cuenta.');
+        Alert.alert(
+          'Error',
+          'No se ha encontrado ninguna cuenta de Book Change asociada a este usuario. Vuelve a intentarlo o crea una cuenta.'
+        );
       }
     } catch (error) {
       Alert.alert('Error', 'Ocurrió un error durante el inicio de sesión');
     }
   };
-
-
 
   const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
 
