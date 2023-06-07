@@ -12,8 +12,9 @@ import {
 } from 'react-native';
 import { RootStackParams } from '../navigation/MainNavigation';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { DocumentData, Query, addDoc, collection, getDocs, limit, query, where } from 'firebase/firestore';
 import { db } from '../utils/firebaseConfig';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
 export const LoginScreen = () => {
   const [user, setUser] = useState('');
@@ -25,6 +26,48 @@ export const LoginScreen = () => {
 
   const handlePassword = (text: string) => {
     setPassword(text);
+  };
+
+  const signInWithGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      const userRef = collection(db, 'users');
+      const querySnapshot = await getDocs(query(userRef, where('googleId', '==', userInfo.user.id), limit(1)));
+
+      if (querySnapshot.empty) {
+        // No se encontró el usuario en Firestore, por lo que se creará uno nuevo
+        const newUserRef = await addDoc(userRef, {
+          googleId: userInfo.user.id,
+          name: userInfo.user.name,
+          email: userInfo.user.email,
+          // Otros datos que desees guardar
+        });
+        console.log('Usuario creado con ID:', newUserRef.id);
+      } else {
+        // El usuario ya existe en Firestore
+        // Aquí puedes actualizar los datos del usuario si es necesario
+        querySnapshot.forEach((doc) => {
+          console.log('Usuario existente con ID:', doc.id);
+        });
+      }
+
+      // El usuario ha iniciado sesión con éxito y se ha guardado en Firestore
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        Alert.alert('Error', 'El inicio de sesión fue cancelado por el usuario')
+        // El inicio de sesión fue cancelado por el usuario
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        Alert.alert('Error', 'Ya hay un inicio de sesión en progreso')
+        // Ya hay un inicio de sesión en progreso
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Alert.alert('Error', 'Los servicios de Google Play no están disponibles')
+        // Los servicios de Google Play no están disponibles
+      } else {
+        Alert.alert('Error', 'Ocurrio un error durante el inicio de sesion con google, vuelva a intentarlo')
+        // Otro tipo de error
+      }
+    }
   };
 
   const handleLogin = async () => {
@@ -140,3 +183,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
 });
+function firestore() {
+  throw new Error('Function not implemented.');
+}
+
+function isEmpty(querySnapshot: Query<DocumentData>) {
+  throw new Error('Function not implemented.');
+}
+
