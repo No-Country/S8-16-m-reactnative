@@ -5,6 +5,7 @@ import { Register3 } from '../../components/Register/Register3';
 import { LoginScreen } from '../../screens/LoginScreen';
 import { AskBookScreen } from '../../screens/AskBookScreen';
 import { GenresBooks } from '../../components/GenresBooks/GenresBooks';
+import { PostBookScreen } from '../../screens/PostBookScreen';
 
 export type DatosForm = {
   nameLastname: string;
@@ -37,6 +38,7 @@ export const InnerStack = () => {
       <InnerStackNavigator.Screen name="Register2" component={Register2} />
       <InnerStackNavigator.Screen name="GenresBooks" component={GenresBooks} />
       <InnerStackNavigator.Screen name="Register3" component={Register3} />
+      <InnerStackNavigator.Screen name="PostBookScreen" component={PostBookScreen} />
     </InnerStackNavigator.Navigator>
   );
 };

@@ -14,7 +14,7 @@ import { RootStackParams } from '../navigation/MainNavigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DocumentData, Query, addDoc, collection, getDocs, limit, query, where } from 'firebase/firestore';
 import { db } from '../utils/firebaseConfig';
-import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+// import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
 export const LoginScreen = () => {
   const [user, setUser] = useState('');
@@ -28,7 +28,7 @@ export const LoginScreen = () => {
     setPassword(text);
   };
 
-  const signInWithGoogle = async () => {
+ /* const signInWithGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
@@ -68,7 +68,7 @@ export const LoginScreen = () => {
         // Otro tipo de error
       }
     }
-  };
+  }; */
 
   const handleLogin = async () => {
     try {
@@ -84,6 +84,7 @@ export const LoginScreen = () => {
           navigation.navigate('StackNavigation' as never);
         } else {
           Alert.alert('Error', 'Contraseña incorrecta. Vuelve a intentarlo');
+          console.log("contraseña incorrecta")
         }
       } else {
         Alert.alert(

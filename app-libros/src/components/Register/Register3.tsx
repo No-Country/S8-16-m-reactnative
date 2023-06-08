@@ -13,19 +13,19 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 interface Register3Props {
   navigation: any;
-  route: any;
+ // route: any;
 }
 
-export const Register3: React.FC<Register3Props> = ({ navigation, route }) => {
-  const { nameLastname, user, password, email, city } = route.params;
-  // const navigation = useNavigation<StackNavigationProp<InnerStackParams>>();
+export const Register3: React.FC<Register3Props> = ({ navigation }) => {
+  /*const { nameLastname, user, password, email, city } = route.params;
+  const navigation = useNavigation<StackNavigationProp<InnerStackParams>>();
   const datos = route.params;
 
   useEffect(() => {
     console.log('Datos anteriores:', nameLastname, password, email, city);
     console.log('Nuevos datos:');
     console.log(datos);
-  }, [nameLastname, user, password, email, city]);
+  }, [nameLastname, user, password, email, city]);*/
 
   return (
     <View className="flex-1 justify-center items-center bg-[#1E1E1E]">
@@ -45,6 +45,7 @@ export const Register3: React.FC<Register3Props> = ({ navigation, route }) => {
         <TouchableOpacity
           activeOpacity={0.8}
           className="bg-[#FF9A1F] px-5 py-5 rounded-xl w-32"
+          onPress={ () => navigation.navigate('PostBookScreen' as never) }
         >
           <Text className="text-[#171719] text-xs self-center font-extrabold">
             SI, QUIERO

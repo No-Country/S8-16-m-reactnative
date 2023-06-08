@@ -66,10 +66,6 @@ export const Register2: React.FC<Register2Props> = ({ navigation, route }) => {
         'Error',
         'Ya existe un usuario registrado con ese correo electrónico'
       );
-      console.log(
-        'Error',
-        'Ya existe un usuario registrado con ese correo electrónico'
-      );
     } else {
       try {
         const docRef = await addDoc(collection(db, 'usuarios'), {
@@ -84,7 +80,7 @@ export const Register2: React.FC<Register2Props> = ({ navigation, route }) => {
           'Muchas gracias por elegir Book Change!'
         );
         console.log('Registro exitoso', docRef.id);
-        navigation.navigate('Register3', {
+        navigation.navigate('GenresBooks', {
           nameLastname,
           user,
           password,
