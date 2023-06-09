@@ -95,8 +95,10 @@ export const HomeScreen = () => {
   // ];
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [book, setBook] = useState({});
 
-  const toggleModal = () => {
+
+  const toggleModal = ( ) => {
     setIsModalVisible(!isModalVisible);
   };
 
@@ -140,8 +142,8 @@ export const HomeScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View className="justify-start w-screen pl-4 pt-5">
-          <Text className="text-white font-bold text-lg ">
+        <View className="justify-start w-screen pt-5">
+          <Text className="text-white font-bold text-lg pl-4">
             Libros en tendencia
           </Text>
           <ScrollView
@@ -150,13 +152,13 @@ export const HomeScreen = () => {
             showsHorizontalScrollIndicator={false}
           >
             {books.map((book, index) => (
-              <View key={index + 1}>
-                <Text className="absolute -left-3 top-1 -z-20  text-[60px] font-bold text-[#FF8A00]">
+              <View key={index + 1} className='pl-3'>
+                <Text className="absolute -left-0 top-1 -z-20  text-[60px] font-bold text-[#FF8A00]">
                   0{index + 1}
                 </Text>
 
                 <TouchableOpacity
-                  onPress={toggleModal}
+                  onPress={() => {toggleModal(); setBook(book); }}
                   className="mr-4 mt-12 bg-bookGrey  z-10 
                   flex items-center
                   pt-4 rounded-2xl h-52 w-32"
@@ -185,11 +187,6 @@ export const HomeScreen = () => {
                   <Ionicons name="bookmark-outline" size={20} color="white" />
                 </View>
 
-                <ModalHome
-                  isModalVisible={isModalVisible}
-                  toggleModal={toggleModal}
-                  book={book}
-                />
               </View>
             ))}
           </ScrollView>
@@ -250,6 +247,12 @@ export const HomeScreen = () => {
           </ScrollView>
         </View>
       </View>
+      <ModalHome
+        // key={'modalHome' + String(index)}
+        isModalVisible={isModalVisible}
+        toggleModal={toggleModal}
+        book={book}
+      />
     </SafeAreaView>
   );
 };
