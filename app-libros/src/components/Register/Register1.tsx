@@ -28,16 +28,49 @@ export const Register1: React.FC<FormularioProps> = ({ navigation }) => {
   };
 
   const handleUser = (text: string) => {
-    setUser(text);
+    setUser(text.toLowerCase());
   };
   const handlePassword = (text: string) => {
     setPassword(text);
+  };
+
+  const validateUser = (user: string) => {
+    return !user.includes(' ');
+  };
+
+  const validatePassword = (password: string) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return passwordRegex.test(password);
   };
 
   const handleSubmit = async () => {
     const usersRef = collection(db, 'usuarios');
     const queryRef = query(usersRef, where('user', '==', user));
     const querySnapshot = await getDocs(queryRef);
+    
+    if(nameLastname.trim() == ''){
+      Alert.alert('Error', 'Ingrese un su nombre y apellido');
+      return;
+    }
+
+    if (!validateUser(user)) {
+      Alert.alert('Error', 'El usuario no debe contener espacios en blanco');
+      return;
+    } else if(user.trim() == ''){
+      Alert.alert('Error', 'Ingrese un usuario');
+      return;
+    }
+
+    if(password.trim() == ''){
+      Alert.alert('Error', 'Ingrese una contraseña');
+      return;
+    }else if (!validatePassword(password)) {
+      Alert.alert(
+        'Error',
+        'La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y tener un mínimo de 8 caracteres.'
+      );
+      return;
+    }
 
     if (!querySnapshot.empty) {
       Alert.alert(

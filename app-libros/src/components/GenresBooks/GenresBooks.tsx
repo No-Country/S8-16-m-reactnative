@@ -11,6 +11,8 @@ import Constants from 'expo-constants';
 import { Image } from 'expo-image';
 import CircleWithImages from './CircleWithImages';
 import { ListInput } from './ListInput';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
 const BookChangeTitle = require('../../../assets/BookChangeTitle.svg');
 
@@ -59,7 +61,11 @@ const creatingKey = () => {
   return result;
 };
 
-export const GenresBooks = () => {
+interface GenresBooksProps {
+  navigation: any;
+}
+
+export const GenresBooks: React.FC<GenresBooksProps>  = ({ navigation }) => {
   const [listOfGenresInButtons, setListOfGenresInButtons] = useState<
     Array<any>
   >([]);
@@ -98,11 +104,13 @@ export const GenresBooks = () => {
   const [heightList, setHeightList] = useState(0);
   const [want, setWant] = useState<Array<string>>([]); // what you are looking for
 
+
   const submit = () => {
     const list = {
       slected: want,
       genres: listOfGenresInButtons,
     };
+    navigation.navigate('Register3' as never);
   };
 
   return (

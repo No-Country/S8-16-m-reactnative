@@ -22,17 +22,23 @@ interface Register2Props {
 }
 
 export const Register2: React.FC<Register2Props> = ({ navigation, route }) => {
-  const { nameLastname, user, password } = route.params;
+  const { nameLastname, user , password } = route.params;
   const [email, setEmail] = useState('');
   const [city, setCity] = useState('');
 
   const handleEmail = (text: string) => {
-    setEmail(text);
+    setEmail(text.toLowerCase());
   };
 
   const handleCity = (text: string) => {
     setCity(text);
   };
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
 
   useEffect(() => {
     console.log('Datos anteriores:', nameLastname, password, user);
@@ -44,12 +50,19 @@ export const Register2: React.FC<Register2Props> = ({ navigation, route }) => {
     const queryRef = query(usersRef, where('email', '==', email));
     const querySnapshot = await getDocs(queryRef);
 
+    if (!validateEmail(email)) {
+      Alert.alert('Error', 'Ingrese un correo electrónico válido');
+      return;
+    }
+    if(city.trim() == ''){
+      Alert.alert('Error', 'Ingrese su ciudad');
+      return;
+    }
+
+
+
     if (!querySnapshot.empty) {
       Alert.alert(
-        'Error',
-        'Ya existe un usuario registrado con ese correo electrónico'
-      );
-      console.log(
         'Error',
         'Ya existe un usuario registrado con ese correo electrónico'
       );
@@ -67,7 +80,7 @@ export const Register2: React.FC<Register2Props> = ({ navigation, route }) => {
           'Muchas gracias por elegir Book Change!'
         );
         console.log('Registro exitoso', docRef.id);
-        navigation.navigate('Register3', {
+        navigation.navigate('GenresBooks', {
           nameLastname,
           user,
           password,
